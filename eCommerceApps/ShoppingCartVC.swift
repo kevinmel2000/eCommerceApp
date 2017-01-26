@@ -9,9 +9,10 @@
 import UIKit
 
 class ShoppingCartVC: UIViewController {
-
+    let cart = Gorobak.sharedInstance
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Shopping Cart"
 
         // Do any additional setup after loading the view.
     }

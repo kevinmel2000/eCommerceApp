@@ -10,11 +10,12 @@ import UIKit
 
 class MoreTVC: UITableViewController {
     
-    let sections = ["Account", "About", "Version 1"]
+    let sections = ["Account", "About", "Version 1 (Build 1)"]
+    let items = [["Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "More Options"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -31,23 +32,28 @@ class MoreTVC: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sections[section]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.items[section].count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoreCell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
+        cell.accessoryType = .disclosureIndicator
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
