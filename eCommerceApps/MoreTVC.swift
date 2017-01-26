@@ -9,6 +9,8 @@
 import UIKit
 
 class MoreTVC: UITableViewController {
+    
+    let sections = ["Account", "About", "Version 1"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
