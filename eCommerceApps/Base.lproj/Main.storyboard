@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeVC" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -22,11 +22,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="4hX-S0-WMo"/>
+                    <navigationItem key="navigationItem" id="KRd-w7-PT8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1202" y="-349"/>
+            <point key="canvasLocation" x="2164" y="-946.77661169415296"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="cym-UF-Z7j">
@@ -38,12 +38,123 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="nQb-2V-6b2"/>
+                        <segue destination="eKt-a6-955" kind="relationship" relationship="viewControllers" id="nQb-2V-6b2"/>
+                        <segue destination="aXZ-XA-3jf" kind="relationship" relationship="viewControllers" id="uPp-0U-xcB"/>
+                        <segue destination="xTW-YM-9xb" kind="relationship" relationship="viewControllers" id="Pfo-lw-9Lm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bi3-ia-aTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
+        <!--Shopping CartVC-->
+        <scene sceneID="Sn4-zl-HYN">
+            <objects>
+                <viewController id="uAg-hG-NZZ" customClass="ShoppingCartVC" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cOy-0O-cdG"/>
+                        <viewControllerLayoutGuide type="bottom" id="dgT-iu-yFC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dgv-d6-aMH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="P9D-qf-re9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mWU-pM-oBD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2164" y="138.98050974512745"/>
+        </scene>
+        <!--MoreTVC-->
+        <scene sceneID="xxF-q7-cWh">
+            <objects>
+                <tableViewController id="91Y-bV-vPg" customClass="MoreTVC" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qcr-0a-7ne">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="hLs-R3-Rmi">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hLs-R3-Rmi" id="bXu-IN-y9d">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="91Y-bV-vPg" id="IQW-7c-IJa"/>
+                            <outlet property="delegate" destination="91Y-bV-vPg" id="40N-kD-lDO"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ByP-Ik-WkM"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OSG-C5-Q55" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2164" y="987.25637181409309"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="yY4-I1-hjx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eKt-a6-955" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="icon_home" id="4hX-S0-WMo"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u9p-sh-77w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="kHy-1u-SxY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euw-fa-Xfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1224.8" y="-946.77661169415296"/>
+        </scene>
+        <!--Shopping Cart-->
+        <scene sceneID="RTn-yF-2iy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aXZ-XA-3jf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Shopping Cart" image="icon_keranjang" id="yvY-gx-b6c"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5zc-hs-Ziw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uAg-hG-NZZ" kind="relationship" relationship="rootViewController" id="FAT-OU-RVF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vih-NL-jja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1224.8" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vsy-6B-IGl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xTW-YM-9xb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="more" id="Bsb-Rn-Js4"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s0b-oS-gC3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="91Y-bV-vPg" kind="relationship" relationship="rootViewController" id="RZl-xn-hnw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jyg-GC-S6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1224.8" y="987.25637181409309"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="icon_home" width="33" height="33"/>
+        <image name="icon_keranjang" width="33" height="33"/>
+    </resources>
 </document>

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "70275DCFE3757712581AB6F0572E6480165AA52C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "70275DCFE3757712581AB6F0572E6480165AA52C" : 9223372036854775807,
+    "BA16924FBD85EA86222C018F0FC578A490AEB6C3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A6CA6C9E-4C91-4D5E-A078-2F4E0A062B92",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "70275DCFE3757712581AB6F0572E6480165AA52C" : "eCommerceApps\/",
+    "BA16924FBD85EA86222C018F0FC578A490AEB6C3" : "Gorobak\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "eCommerceApps",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "eCommerceApps.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/luthfifr\/ecommerceapp_pakyahya.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "70275DCFE3757712581AB6F0572E6480165AA52C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/luthfifr\/gorobak_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BA16924FBD85EA86222C018F0FC578A490AEB6C3"
+    }
+  ]
+}
