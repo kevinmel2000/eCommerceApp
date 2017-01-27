@@ -135,7 +135,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func forgetpassButton(_ sender: UIButton) {
-        //performSegue(withIdentifier: "SegueToForgetPassFromLogin", sender: self)
+        performSegue(withIdentifier: "SegueToForgetPassFromLogin", sender: self)
     }
     
     @IBAction func cancelButton(_ sender: UIButton) {
