@@ -8,13 +8,38 @@
 
 import UIKit
 
-class ShoppingCartVC: UIViewController {
+class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let userdefault = UserDefaults.standard
     let cart = Gorobak.sharedInstance
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var clearButton: UIBarButtonItem!
+    @IBOutlet weak var totalCostsLabel: UILabel!
+    @IBOutlet weak var CheckOutButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Shopping Cart"
 
-        // Do any additional setup after loading the view.
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkEmptyStateOfCart()
+        tableView.reloadData()
+        
+        updateTotalCostsLabel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //update total price label, get notification from CutomTableViewCell
+        NotificationCenter.default.addObserver(self, selector: #selector(ShoppingCartVC.updateTotalCostsLabel), name: NSNotification.Name(rawValue: "ItemPriceHasBeenChanged"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +47,106 @@ class ShoppingCartVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Table view data source
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cart.numberOfItemsInCart()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let productCell = tableView.dequeueReusableCell(withIdentifier: "SCartCell", for: indexPath as IndexPath) as! CustomCellShoppingCartVC
+        
+        productCell.selectionStyle = .none
+        
+        let product = cart.productAtIndexPath(indexPath)
+        productCell.imageProd.downloadedFrom(link: product.imageURL)
+        productCell.imageProd.contentMode = UIViewContentMode.scaleAspectFit
+        productCell.itemNameLabel.text = product.prodName
+        productCell.itemNameLabel.sizeToFit()
+        productCell.itemPriceLabel.text = product.prodPrice //productPriceFormatter.string(from: Int(product.prodPrice)! as NSNumber)
+        productCell.itemPriceLabel.sizeToFit()
+        productCell.itemQty.text = String(product.qty)
+        productCell.itemQty.sizeToFit()
+        productCell.Stepper.layer.cornerRadius = 5
+        productCell.Stepper.maximumValue = Double(product.stock)!
+        
+        return productCell
+    }
+    
+    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+     }*/
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 134.0;//Choose your custom row height
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .delete {
+            let product = cart.productAtIndexPath(indexPath as IndexPath)
+            let successful = cart.removeProduct(product)
+            
+            if (successful) {
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .right)
+                tableView.endUpdates()
+            }
+            
+            checkEmptyStateOfCart()
+        }
+    }
+    
+    func checkEmptyStateOfCart() {
+        setEmptyViewVisible(visible: cart.numberOfItemsInCart() == 0)
+    }
+    
+    func updateTotalCostsLabel() {
+        totalCostsLabel.text = String(cart.totalPriceInCart())
+    }
+    
+    func clearCart() {
+        cart.deleteAllDataInCart()
+        tableView.reloadData()
+        
+        setEmptyViewVisible(visible: true)
+    }
+    
+    func setEmptyViewVisible(visible: Bool) {
+        emptyView.isHidden = !visible
+        if visible {
+            clearButton.isEnabled = false
+            CheckOutButton.isEnabled = false
+            CheckOutButton.backgroundColor = UIColor.darkGray
+            self.view.bringSubview(toFront: emptyView)
+        } else {
+            clearButton.isEnabled = true
+            CheckOutButton.isEnabled = true
+            CheckOutButton.backgroundColor = UIColor(red: 116.0/255.0, green: 252.0/255.0, blue: 50.0/255.0, alpha: 1.0)
+            self.view.sendSubview(toBack: emptyView)
+        }
+    }
+    
+    
+    @IBAction func CheckOutButton(_ sender: UIButton) {
+        if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
+            if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
+                performSegue(withIdentifier: "SegueFromCartToShipment", sender: self)
+            }
+        } else {
+            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please login to start check out process.", preferredStyle: UIAlertControllerStyle.alert)
+            alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
+            self.present(alertStatus, animated: true, completion: nil)
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -33,4 +158,26 @@ class ShoppingCartVC: UIViewController {
     }
     */
 
+}
+
+extension UIImageView {
+    func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        guard let url = URL(string: link) else { return }
+        downloadedFrom(url: url, contentMode: mode)
+    }
+    
+    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() { () -> Void in
+                self.image = image
+            }
+            }.resume()
+    }
 }
