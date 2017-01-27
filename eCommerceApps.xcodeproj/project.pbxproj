@@ -20,6 +20,7 @@
 		CF514A351E39F3510072889C /* MoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF514A341E39F3510072889C /* MoreTVC.swift */; };
 		CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E931E3A0053005338D5 /* Gorobak.swift */; };
 		CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */; };
+		CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E971E3ACA19005338D5 /* LoginVC.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		CF514A341E39F3510072889C /* MoreTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTVC.swift; sourceTree = "<group>"; };
 		CF855E931E3A0053005338D5 /* Gorobak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gorobak.swift; sourceTree = "<group>"; };
 		CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellShoppingCartVC.swift; sourceTree = "<group>"; };
+		CF855E971E3ACA19005338D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */,
 				CF855E931E3A0053005338D5 /* Gorobak.swift */,
 				CF514A341E39F3510072889C /* MoreTVC.swift */,
+				CF855E971E3ACA19005338D5 /* LoginVC.swift */,
 				CF514A041E39EBAD0072889C /* Main.storyboard */,
 				CF514A071E39EBAE0072889C /* Assets.xcassets */,
 				CF514A091E39EBAE0072889C /* LaunchScreen.storyboard */,
@@ -450,6 +453,7 @@
 			files = (
 				CF514A331E39F3340072889C /* ShoppingCartVC.swift in Sources */,
 				CF514A031E39EBAD0072889C /* HomeViewController.swift in Sources */,
+				CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */,
 				CF514A011E39EBAD0072889C /* AppDelegate.swift in Sources */,
 				CF514A351E39F3510072889C /* MoreTVC.swift in Sources */,
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,

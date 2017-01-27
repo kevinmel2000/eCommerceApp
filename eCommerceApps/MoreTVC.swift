@@ -54,6 +54,18 @@ class MoreTVC: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.tableView.indexPathForSelectedRow != nil {
+            let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
+            switch ((currentCell.textLabel!.text)!) {
+            case "Log In":
+                performSegue(withIdentifier: "SegueToLoginFromMoreView", sender: self)
+            
+            default:
+                break
+            }
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
