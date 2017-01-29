@@ -11,16 +11,21 @@ import UIKit
 class MoreTVC: UITableViewController {
     
     let sections = ["Account", "About", "Version 1 (Build 1)"]
-    let items = [["Change Password", "Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
+    var items = [["Change Password", "Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
+    
+    let userdefault = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "More Options"
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        let LoginStatus = userdefault.object(forKey: "loginStatus") as! Bool
+        //check whether there is a user being log in, if yes, change "Log In" in array items into "Log Out"
+        if (LoginStatus) {
+            items[items.count-1] = ["Log Out"]
+        } else {
+            items[items.count-1] = ["Log In"]
+        }
     }
 
     override func didReceiveMemoryWarning() {

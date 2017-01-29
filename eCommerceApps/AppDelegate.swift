@@ -12,10 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let userdefault = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if ((userdefault.object(forKey: "loginStatus") as? Bool == nil) &&  (userdefault.object(forKey: "userid") as? String == nil)) {
+            userdefault.set(false, forKey: "loginStatus")
+            userdefault.removeObject(forKey: "userid")
+            userdefault.synchronize()
+        }
+        
         return true
     }
 
