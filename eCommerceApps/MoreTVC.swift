@@ -11,7 +11,7 @@ import UIKit
 class MoreTVC: UITableViewController {
     
     let sections = ["Account", "About", "Version 1 (Build 1)"]
-    let items = [["Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
+    let items = [["Change Password", "Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
