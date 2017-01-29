@@ -129,12 +129,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SegueToUpdateProfFromSignUp"{
-            let DestVc = segue.destination as! UpdateProfileViewController
+            let DestVc = segue.destination as! UserProfileVC
             DestVc.VCOrigin = "SignUpVC"
         }
-    }*/
+    }
     
     /*func textFieldShouldClear(_ textField: UITextField) -> Bool {
      textField.clearButtonMode = UITextFieldViewMode.whileEditing

@@ -79,6 +79,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return passTest.evaluate(with: pass)
     }
     
+    //akun untuk coba login
+    //email: luthfir272@gmail.com
+    //password: 123asd&
     @IBAction func loginButton(_ sender: UIButton) {
         if ((self.text_password.text?.isEmpty)! && (self.text_email.text?.isEmpty)!) {
             let alertEmpty = UIAlertController (title: "Warning", message: "All fields must be filled.", preferredStyle: UIAlertControllerStyle.alert)

@@ -11,7 +11,7 @@ import UIKit
 class MoreTVC: UITableViewController {
     
     let sections = ["Account", "About", "Version 1 (Build 1)"]
-    var items = [["Change Password", "Shipping Address", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
+    var items = [["Change Password", "User Info", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
     
     let userdefault = UserDefaults.standard
 
@@ -63,9 +63,34 @@ class MoreTVC: UITableViewController {
         if self.tableView.indexPathForSelectedRow != nil {
             let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
             switch ((currentCell.textLabel!.text)!) {
+            case "User Info":
+                performSegue(withIdentifier: "SegueToUpdateProfFromUserProf", sender: self)
+            case "About Us":
+                performSegue(withIdentifier: "SegueFromMoreToAboutUs", sender: self)
+            case "Contact Us":
+                performSegue(withIdentifier: "SegueFromMoreToContactUs", sender: self)
+            case "Privacy Policy":
+                performSegue(withIdentifier: "SegueFromMoreToPrivacyPolicy", sender: self)
             case "Log In":
                 performSegue(withIdentifier: "SegueToLoginFromMoreView", sender: self)
-            
+            case "Log Out":
+                let alertLogout0 = UIAlertController (title: "Logout Confirmation", message: "Are you sure want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+                alertLogout0.addAction(UIAlertAction(title: "Logout", style: UIAlertActionStyle.destructive,handler: {(action) in
+                    self.userdefault.set(false, forKey: "loginStatus")
+                    self.userdefault.removeObject(forKey: "userid")
+                    self.userdefault.removeObject(forKey: "user_currency")
+                    self.userdefault.synchronize()
+                    let alertLogout = UIAlertController (title: "Log Out Success", message: "You've logged out from DSC App account.", preferredStyle: UIAlertControllerStyle.alert)
+                    alertLogout.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                    self.present(alertLogout, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: {
+                        self.viewDidLoad()
+                        self.tableView.reloadData()
+                    })
+                }))
+                alertLogout0.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alertLogout0, animated: true, completion: nil)
+                
             default:
                 break
             }

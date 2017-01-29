@@ -23,6 +23,10 @@
 		CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E971E3ACA19005338D5 /* LoginVC.swift */; };
 		CF855E9A1E3AE3C3005338D5 /* ForgetPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E991E3AE3C3005338D5 /* ForgetPassVC.swift */; };
 		CF855E9C1E3DBF34005338D5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E9B1E3DBF34005338D5 /* SignUpVC.swift */; };
+		CF855E9E1E3DCEDF005338D5 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E9D1E3DCEDF005338D5 /* UserProfileVC.swift */; };
+		CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */; };
+		CF855EA21E3E13D4005338D5 /* ContactUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */; };
+		CF855EA41E3E1451005338D5 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +77,10 @@
 		CF855E971E3ACA19005338D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		CF855E991E3AE3C3005338D5 /* ForgetPassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPassVC.swift; sourceTree = "<group>"; };
 		CF855E9B1E3DBF34005338D5 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		CF855E9D1E3DCEDF005338D5 /* UserProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
+		CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
+		CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsVC.swift; sourceTree = "<group>"; };
+		CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +168,10 @@
 				CF855E971E3ACA19005338D5 /* LoginVC.swift */,
 				CF855E9B1E3DBF34005338D5 /* SignUpVC.swift */,
 				CF855E991E3AE3C3005338D5 /* ForgetPassVC.swift */,
+				CF855E9D1E3DCEDF005338D5 /* UserProfileVC.swift */,
+				CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */,
+				CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */,
+				CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */,
 				CF514A041E39EBAD0072889C /* Main.storyboard */,
 				CF514A071E39EBAE0072889C /* Assets.xcassets */,
 				CF514A091E39EBAE0072889C /* LaunchScreen.storyboard */,
@@ -460,12 +472,16 @@
 				CF514A331E39F3340072889C /* ShoppingCartVC.swift in Sources */,
 				CF855E9C1E3DBF34005338D5 /* SignUpVC.swift in Sources */,
 				CF514A031E39EBAD0072889C /* HomeViewController.swift in Sources */,
+				CF855E9E1E3DCEDF005338D5 /* UserProfileVC.swift in Sources */,
 				CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */,
+				CF855EA21E3E13D4005338D5 /* ContactUsVC.swift in Sources */,
 				CF514A011E39EBAD0072889C /* AppDelegate.swift in Sources */,
 				CF855E9A1E3AE3C3005338D5 /* ForgetPassVC.swift in Sources */,
 				CF514A351E39F3510072889C /* MoreTVC.swift in Sources */,
+				CF855EA41E3E1451005338D5 /* PrivacyPolicyVC.swift in Sources */,
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,
 				CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */,
+				CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
