@@ -130,7 +130,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUpButton(_ sender: UIButton) {
-        //performSegue(withIdentifier: "SegueToSignUpFromLogin", sender: self)
+        performSegue(withIdentifier: "SegueToSignUpFromLogin", sender: self)
     }
     
     

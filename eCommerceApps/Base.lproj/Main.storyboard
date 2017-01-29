@@ -113,7 +113,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kbQ-YZ-MZt">
-                                                    <rect key="frame" x="10" y="-9" width="131" height="127"/>
+                                                    <rect key="frame" x="8" y="-10" width="132" height="127"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xb9-k5-Jyk">
@@ -460,11 +460,119 @@
                         <outlet property="text_password" destination="KCd-3b-yob" id="mtw-0l-yee"/>
                         <segue destination="z8N-b3-I9k" kind="presentation" identifier="SegueFromLoginToMoreView" id="yFr-AW-VL1"/>
                         <segue destination="lE2-FI-v2L" kind="presentation" identifier="SegueToForgetPassFromLogin" id="r6Q-1J-kO7"/>
+                        <segue destination="Af6-ga-aww" kind="presentation" identifier="SegueToSignUpFromLogin" id="Hp0-ml-KUJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gtp-z4-LMP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1224.6376811594205" y="1898.6413043478262"/>
+        </scene>
+        <!--Sign UpVC-->
+        <scene sceneID="dUu-YH-Kjo">
+            <objects>
+                <viewController id="Af6-ga-aww" customClass="SignUpVC" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lYp-DL-DY2"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Xv-4l-Lzm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="If3-jY-4Re">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1j-yc-Zzk">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKz-Rc-riw">
+                                        <rect key="frame" x="31" y="20" width="353" height="230"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="230" id="wek-t2-BX7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="230-gP-63t">
+                                        <rect key="frame" x="31" y="295" width="353" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-rg-oLN">
+                                        <rect key="frame" x="31" y="335" width="353" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-enter Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="U9U-oi-pFy">
+                                        <rect key="frame" x="31" y="375" width="353" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GtU-Np-JeX">
+                                        <rect key="frame" x="31" y="448" width="353" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Sign Up">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_signup:" destination="Af6-ga-aww" eventType="touchUpInside" id="pAm-jH-VT6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2i-x9-As5">
+                                        <rect key="frame" x="31" y="488" width="353" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.1764705882" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_cancel:" destination="Af6-ga-aww" eventType="touchUpInside" id="mBk-ai-yvA"/>
+                                            <action selector="cancelButton:" destination="5BY-Pj-oOQ" eventType="touchUpInside" id="KSl-z2-sn4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="GtU-Np-JeX" firstAttribute="top" secondItem="U9U-oi-pFy" secondAttribute="bottom" constant="43" id="0iL-Ui-wwd"/>
+                                    <constraint firstItem="230-gP-63t" firstAttribute="trailing" secondItem="Sy6-rg-oLN" secondAttribute="trailing" id="0zv-0v-4C8"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="leading" secondItem="k1j-yc-Zzk" secondAttribute="leading" constant="31" id="24U-ZH-bdg"/>
+                                    <constraint firstAttribute="trailing" secondItem="TKz-Rc-riw" secondAttribute="trailing" constant="30" id="A5Q-No-U6S"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="leading" secondItem="z2i-x9-As5" secondAttribute="leading" id="Nom-Ge-mLK"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="trailing" secondItem="Sy6-rg-oLN" secondAttribute="trailing" id="Obg-jr-peI"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="trailing" secondItem="GtU-Np-JeX" secondAttribute="trailing" id="PMV-xX-w00"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="top" secondItem="k1j-yc-Zzk" secondAttribute="top" constant="20" id="Rkm-Ni-nhN"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="leading" secondItem="U9U-oi-pFy" secondAttribute="leading" id="Z0J-Jz-0Cy"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="centerX" secondItem="k1j-yc-Zzk" secondAttribute="centerX" id="aDU-TH-Zcv"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="leading" secondItem="GtU-Np-JeX" secondAttribute="leading" id="coK-nD-5bz"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="leading" secondItem="Sy6-rg-oLN" secondAttribute="leading" id="fgJ-y4-1jS"/>
+                                    <constraint firstItem="z2i-x9-As5" firstAttribute="top" secondItem="GtU-Np-JeX" secondAttribute="bottom" constant="10" id="gdw-tb-hQU"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="trailing" secondItem="U9U-oi-pFy" secondAttribute="trailing" id="i0t-Pd-vNe"/>
+                                    <constraint firstItem="230-gP-63t" firstAttribute="leading" secondItem="Sy6-rg-oLN" secondAttribute="leading" id="lf6-So-qAW"/>
+                                    <constraint firstItem="Sy6-rg-oLN" firstAttribute="top" secondItem="230-gP-63t" secondAttribute="bottom" constant="10" id="sO7-Gr-Y5c"/>
+                                    <constraint firstAttribute="bottom" secondItem="TKz-Rc-riw" secondAttribute="bottom" constant="466" id="tPD-05-Ch4"/>
+                                    <constraint firstItem="TKz-Rc-riw" firstAttribute="trailing" secondItem="z2i-x9-As5" secondAttribute="trailing" id="vKF-qY-Wgj"/>
+                                    <constraint firstItem="U9U-oi-pFy" firstAttribute="top" secondItem="Sy6-rg-oLN" secondAttribute="bottom" constant="10" id="xJv-Fq-2R5"/>
+                                    <constraint firstItem="230-gP-63t" firstAttribute="top" secondItem="TKz-Rc-riw" secondAttribute="bottom" constant="45" id="xnk-Xi-jZ9"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="k1j-yc-Zzk" firstAttribute="bottom" secondItem="2Xv-4l-Lzm" secondAttribute="top" id="Hn3-lg-PsA"/>
+                            <constraint firstItem="k1j-yc-Zzk" firstAttribute="top" secondItem="lYp-DL-DY2" secondAttribute="bottom" id="RR9-fJ-wLr"/>
+                            <constraint firstAttribute="trailing" secondItem="k1j-yc-Zzk" secondAttribute="trailing" id="epu-CO-Dnu"/>
+                            <constraint firstItem="k1j-yc-Zzk" firstAttribute="leading" secondItem="If3-jY-4Re" secondAttribute="leading" id="hZ3-Tv-qGe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_cancel" destination="z2i-x9-As5" id="Feg-1h-we7"/>
+                        <outlet property="btn_signup" destination="GtU-Np-JeX" id="yMn-uH-ONd"/>
+                        <outlet property="imv_logo" destination="TKz-Rc-riw" id="dY3-4m-thj"/>
+                        <outlet property="text_email" destination="230-gP-63t" id="91p-g5-iti"/>
+                        <outlet property="text_password" destination="Sy6-rg-oLN" id="vHV-67-jyo"/>
+                        <outlet property="text_password_verif" destination="U9U-oi-pFy" id="oC8-bY-qbe"/>
+                        <segue destination="5BY-Pj-oOQ" kind="presentation" identifier="SegueFromSignUpToLogin" id="LRJ-Er-2JN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ArC-5p-fRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2217.3913043478265" y="1907.608695652174"/>
         </scene>
     </scenes>
     <resources>
@@ -472,6 +580,6 @@
         <image name="icon_keranjang" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KTU-X0-5q9"/>
+        <segue reference="LRJ-Er-2JN"/>
     </inferredMetricsTieBreakers>
 </document>
