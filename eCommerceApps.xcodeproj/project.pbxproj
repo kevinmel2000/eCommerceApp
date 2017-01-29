@@ -27,6 +27,8 @@
 		CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */; };
 		CF855EA21E3E13D4005338D5 /* ContactUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */; };
 		CF855EA41E3E1451005338D5 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */; };
+		CF855EA61E3E1BFD005338D5 /* ChangePassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA51E3E1BFD005338D5 /* ChangePassVC.swift */; };
+		CF855EA81E3E2146005338D5 /* OrderHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EA71E3E2146005338D5 /* OrderHistoryVC.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
 		CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsVC.swift; sourceTree = "<group>"; };
 		CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
+		CF855EA51E3E1BFD005338D5 /* ChangePassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassVC.swift; sourceTree = "<group>"; };
+		CF855EA71E3E2146005338D5 /* OrderHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHistoryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +172,9 @@
 				CF855E971E3ACA19005338D5 /* LoginVC.swift */,
 				CF855E9B1E3DBF34005338D5 /* SignUpVC.swift */,
 				CF855E991E3AE3C3005338D5 /* ForgetPassVC.swift */,
+				CF855EA51E3E1BFD005338D5 /* ChangePassVC.swift */,
 				CF855E9D1E3DCEDF005338D5 /* UserProfileVC.swift */,
+				CF855EA71E3E2146005338D5 /* OrderHistoryVC.swift */,
 				CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */,
 				CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */,
 				CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */,
@@ -469,7 +475,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF855EA81E3E2146005338D5 /* OrderHistoryVC.swift in Sources */,
 				CF514A331E39F3340072889C /* ShoppingCartVC.swift in Sources */,
+				CF855EA61E3E1BFD005338D5 /* ChangePassVC.swift in Sources */,
 				CF855E9C1E3DBF34005338D5 /* SignUpVC.swift in Sources */,
 				CF514A031E39EBAD0072889C /* HomeViewController.swift in Sources */,
 				CF855E9E1E3DCEDF005338D5 /* UserProfileVC.swift in Sources */,

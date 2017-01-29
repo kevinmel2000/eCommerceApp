@@ -54,7 +54,7 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Update Profile Form"
+        self.title = "User Info"
     }
     
     override func viewDidLoad() {

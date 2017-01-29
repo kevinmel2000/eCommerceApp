@@ -63,6 +63,8 @@ class MoreTVC: UITableViewController {
         if self.tableView.indexPathForSelectedRow != nil {
             let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
             switch ((currentCell.textLabel!.text)!) {
+            case "Change Password":
+                performSegue(withIdentifier: "SegueToChangePassFromMore", sender: self)
             case "User Info":
                 performSegue(withIdentifier: "SegueToUpdateProfFromUserProf", sender: self)
             case "About Us":
