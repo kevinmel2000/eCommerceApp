@@ -18,7 +18,7 @@ class MoreTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "More Options"
-        
+        self.tableView.tableFooterView = UIView()
         let LoginStatus = userdefault.object(forKey: "loginStatus") as! Bool
         //check whether there is a user being log in, if yes, change "Log In" in array items into "Log Out"
         if (LoginStatus) {

@@ -11,7 +11,8 @@ import Alamofire
 
 class PaymentMethodTVC: UITableViewController {
 
-    let TableData = ["Cash On Delivery (COD)", "Bank Transfer"]
+    //let TableData = ["Cash On Delivery", "Bank Transfer"]
+    //var TableData:Array<String> = Array <String>()
     
     let userdefault = UserDefaults.standard
     
@@ -22,7 +23,7 @@ class PaymentMethodTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.tableFooterView = UIView()
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
             if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
                 get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
@@ -34,11 +35,6 @@ class PaymentMethodTVC: UITableViewController {
             }))
             self.present(alertStatus, animated: true, completion: nil)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //update total price label, get notification from CutomTableViewCell
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentMethodTVC.updateDefaultPayment), name: NSNotification.Name(rawValue: "defaultPaymentHasBeenChanged"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +51,7 @@ class PaymentMethodTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return TableData.count
+        return 1//TableData.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -64,17 +60,23 @@ class PaymentMethodTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Set Default Payment Method"
+        return "Default Method"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath as IndexPath) as! CustomCellPMTVC
         
-        cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
+        cell.paymentNameLabel.text = "Bank Transfer"//TableData[indexPath.row]
+        
         
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SegueChoicesPaymentMethod", sender: self)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -150,14 +152,6 @@ class PaymentMethodTVC: UITableViewController {
                 break
             }
         }
-    }
-    
-    func updateDefaultPayment() {
-        let alert1 = UIAlertController (title: "eCommerce App Message", message: "Switch Value Changed", preferredStyle: UIAlertControllerStyle.alert)
-        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
-            
-        }))
-        self.present(alert1, animated: true, completion: nil)
     }
 
 }
