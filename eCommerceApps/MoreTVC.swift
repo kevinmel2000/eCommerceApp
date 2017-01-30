@@ -67,6 +67,8 @@ class MoreTVC: UITableViewController {
                 performSegue(withIdentifier: "SegueToChangePassFromMore", sender: self)
             case "User Info":
                 performSegue(withIdentifier: "SegueToUpdateProfFromUserProf", sender: self)
+            case "Order History":
+                performSegue(withIdentifier: "SegueOrderHistory", sender: self)
             case "About Us":
                 performSegue(withIdentifier: "SegueFromMoreToAboutUs", sender: self)
             case "Contact Us":

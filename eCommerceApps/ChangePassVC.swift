@@ -24,10 +24,21 @@ class ChangePassVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 3.0/255.0, alpha: 1.0)
         btn_submit.layer.cornerRadius = 5
-        text_newPass.delegate = self
-        text_oldPass.delegate = self
+        
+        if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
+            if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
+                text_newPass.delegate = self
+                text_oldPass.delegate = self
+            }
+        } else {
+            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
+            alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alertStatus, animated: true, completion: nil)
+        }
+        
         //ngehilangin keyboard kalo user tap di luar field #1
         let tapAnywhere: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(ChangePassVC.dismissKeyboard))
         view.addGestureRecognizer(tapAnywhere)

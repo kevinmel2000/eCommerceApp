@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -20,7 +21,6 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Order History"
-        tableView.reloadData()
         checkEmptyState()
     }
     
@@ -69,12 +69,6 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.textLabel?.text = TableData[indexPath.row]
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-        }
-        else {
-            cell.backgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 3.0/255.0, alpha: 1.0)
-        }
         cell.accessoryType = .disclosureIndicator
         
         return cell

@@ -59,17 +59,25 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 3.0/255.0, alpha: 1.0)
         btn_submit.layer.cornerRadius = 5
-        user_name.delegate = self
-        user_street.delegate = self
-        user_city.delegate = self
-        user_province.delegate = self
-        user_postalCode.delegate = self
-        user_country.delegate = self
         
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
-            get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
+            if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
+                user_name.delegate = self
+                user_street.delegate = self
+                user_city.delegate = self
+                user_province.delegate = self
+                user_postalCode.delegate = self
+                user_country.delegate = self
+                
+                get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
+            }
+        } else {
+            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
+            alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alertStatus, animated: true, completion: nil)
         }
         
         //ngehilangin keyboard kalo user tap di luar field #1
