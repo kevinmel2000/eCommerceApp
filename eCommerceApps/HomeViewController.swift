@@ -137,6 +137,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
                 break
             }
         }

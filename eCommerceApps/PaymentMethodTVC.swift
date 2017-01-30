@@ -35,6 +35,11 @@ class PaymentMethodTVC: UITableViewController {
             self.present(alertStatus, animated: true, completion: nil)
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //update total price label, get notification from CutomTableViewCell
+        NotificationCenter.default.addObserver(self, selector: #selector(PaymentMethodTVC.updateDefaultPayment), name: NSNotification.Name(rawValue: "defaultPaymentHasBeenChanged"), object: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,10 +68,10 @@ class PaymentMethodTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath as IndexPath) as! PaymentMethodTVC
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath as IndexPath) as! CustomCellPMTVC
         
-        .selectionStyle = .none
-
+        cell.selectionStyle = .none
+        
         return cell
     }
 
@@ -139,9 +144,20 @@ class PaymentMethodTVC: UITableViewController {
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
                 break
             }
         }
+    }
+    
+    func updateDefaultPayment() {
+        let alert1 = UIAlertController (title: "eCommerce App Message", message: "Switch Value Changed", preferredStyle: UIAlertControllerStyle.alert)
+        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
+            
+        }))
+        self.present(alert1, animated: true, completion: nil)
     }
 
 }

@@ -66,6 +66,9 @@ class ForgetPassVC: UIViewController, UITextFieldDelegate {
                         }
                     case .failure(let error):
                         print("Error request data from server: \(error)")
+                        let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alert1, animated: true, completion: nil)
                         break
                     }
                 }
