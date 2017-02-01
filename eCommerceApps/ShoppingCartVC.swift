@@ -69,6 +69,7 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
         productCell.itemNameLabel.sizeToFit()
         productCell.itemPriceLabel.text = product.prodPrice //productPriceFormatter.string(from: Int(product.prodPrice)! as NSNumber)
         productCell.itemPriceLabel.sizeToFit()
+        //productCell.accessoryView = productCell.itemPriceLabel
         productCell.itemQty.text = String(product.qty)
         productCell.itemQty.sizeToFit()
         productCell.Stepper.layer.cornerRadius = 5
@@ -110,7 +111,7 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func updateTotalCostsLabel() {
-        totalCostsLabel.text = String(cart.totalPriceInCart())
+        totalCostsLabel.text = "IDR "+String(cart.totalPriceInCart())
     }
     
     func clearCart() {
@@ -135,6 +136,14 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    @IBAction func clearButton(_ sender: UIBarButtonItem) {
+        clearCart()
+        DispatchQueue.main.async(execute: {
+            self.tableView.reloadData()
+            self.checkEmptyStateOfCart()
+            self.updateTotalCostsLabel()
+        })
+    }
     
     @IBAction func CheckOutButton(_ sender: UIButton) {
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {

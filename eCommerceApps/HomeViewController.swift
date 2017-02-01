@@ -98,6 +98,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return false
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SegueProd", sender: self)
+    }
+    
     /*
      // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -112,6 +116,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
      return true
      }
      */
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        let prodVc = segue.destination as! ProductVC
+        if segue.identifier == "SegueProd"{
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                // get the cell associated with the indexPath selected.
+                let currentCell = tableView.cellForRow(at: indexPath)! as! HomeTVC
+                prodVc.ProductName = currentCell.prodNameLabel.text! as String
+            }
+        }
+    }
 
     func get_data_for_banners(url:String){
         Alamofire.request(url, method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
@@ -199,9 +217,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 break
             case .failure(let error):
                 print("Error: \(error)")
-                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
-                self.present(alert1, animated: true, completion: nil)
+                let alert2 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert2.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert2, animated: true, completion: nil)
                 break
             }
         }
