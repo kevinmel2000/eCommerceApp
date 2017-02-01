@@ -7,20 +7,31 @@
 //
 
 import UIKit
+import Alamofire
+
+//the dummy: http://www.dummies.com/privacy-policy/
 
 class PrivacyPolicyVC: UIViewController {
-
+    
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var btn_refresh: UIBarButtonItem!
+    @IBOutlet weak var btn_stopLoading: UIBarButtonItem!
+    @IBOutlet weak var btn_goForward: UIBarButtonItem!
+    @IBOutlet weak var btn_goBack: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Privacy Policy"
-        // Do any additional setup after loading the view.
+        
+        let url = NSURL(string: "http://www.dummies.com/privacy-policy/")
+        let request = NSURLRequest(url: url! as URL)
+        webView.loadRequest(request as URLRequest)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

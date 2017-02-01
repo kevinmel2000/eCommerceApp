@@ -8,12 +8,24 @@
 
 import UIKit
 
+//the dummy: http://neutroncreations.com/contact/
+
 class ContactUsVC: UIViewController {
 
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var btn_refresh: UIBarButtonItem!
+    @IBOutlet weak var btn_stopLoading: UIBarButtonItem!
+    @IBOutlet weak var btn_goForward: UIBarButtonItem!
+    @IBOutlet weak var btn_goBack: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Contact Us"
-        // Do any additional setup after loading the view.
+        
+        let url = NSURL(string: "http://neutroncreations.com/contact/")
+        let request = NSURLRequest(url: url! as URL)
+        webView.loadRequest(request as URLRequest)
+        
     }
 
     override func didReceiveMemoryWarning() {

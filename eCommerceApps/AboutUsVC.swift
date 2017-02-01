@@ -8,12 +8,23 @@
 
 import UIKit
 
+//the dummy: http://www.drxlr.com/about/
+
 class AboutUsVC: UIViewController {
 
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var btn_refresh: UIBarButtonItem!
+    @IBOutlet weak var btn_stopLoading: UIBarButtonItem!
+    @IBOutlet weak var btn_goForward: UIBarButtonItem!
+    @IBOutlet weak var btn_goBack: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "About Us"
-        // Do any additional setup after loading the view.
+        
+        let url = NSURL(string: "http://www.drxlr.com/about/")
+        let request = NSURLRequest(url: url! as URL)
+        webView.loadRequest(request as URLRequest)
     }
 
     override func didReceiveMemoryWarning() {

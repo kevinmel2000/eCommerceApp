@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -113,25 +114,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kbQ-YZ-MZt">
-                                                    <rect key="frame" x="3" y="-12" width="135" height="121"/>
+                                                    <rect key="frame" x="3" y="-14" width="134" height="122"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xb9-k5-Jyk">
-                                                    <rect key="frame" x="158" y="8" width="88" height="18"/>
+                                                    <rect key="frame" x="157" y="8" width="87" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="itemPrice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lia-7V-adh">
-                                                    <rect key="frame" x="310" y="47" width="91" height="18"/>
+                                                    <rect key="frame" x="309" y="47" width="91" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="itemQty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FC0-wf-e4Q">
-                                                    <rect key="frame" x="158" y="47" width="56" height="18"/>
+                                                    <rect key="frame" x="157" y="47" width="56" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -352,7 +353,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vY4-Jt-S4d">
-                                            <rect key="frame" x="21" y="8" width="89" height="87"/>
+                                            <rect key="frame" x="21" y="7" width="89" height="85"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
@@ -396,21 +397,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrG-sO-2Jc">
-                                <rect key="frame" x="0.0" y="120" width="414" height="259"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZV-Qd-Rhm">
+                                <rect key="frame" x="0.0" y="108" width="414" height="571"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WEq-fa-ExY">
+                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="TcZ-Vs-YFb">
+                                        <leftBarButtonItems>
+                                            <barButtonItem image="icons-goBack" id="A9M-aR-HNM">
+                                                <connections>
+                                                    <action selector="goBack" destination="bZV-Qd-Rhm" id="kfB-Xs-z12"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="icons-goForward" id="Ldo-P3-8ow">
+                                                <connections>
+                                                    <action selector="goForward" destination="bZV-Qd-Rhm" id="YfG-3E-JUU"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="sJm-rc-47U">
+                                                <connections>
+                                                    <action selector="reload" destination="bZV-Qd-Rhm" id="fpH-8d-NdL"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem systemItem="stop" id="HlP-ic-dx7">
+                                                <connections>
+                                                    <action selector="stopLoading" destination="bZV-Qd-Rhm" id="yTq-Dz-sUY"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="btn_goBack" destination="A9M-aR-HNM" id="ky8-Qc-E4t"/>
+                        <outlet property="btn_goForward" destination="Ldo-P3-8ow" id="aY4-Cq-sNQ"/>
+                        <outlet property="btn_refresh" destination="sJm-rc-47U" id="eQY-m2-O4B"/>
+                        <outlet property="btn_stopLoading" destination="HlP-ic-dx7" id="xqe-mi-YTf"/>
+                        <outlet property="webView" destination="bZV-Qd-Rhm" id="oKU-c0-iFS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oh7-ym-r70" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4288.4057971014499" y="1907.608695652174"/>
+            <point key="canvasLocation" x="4302.898550724638" y="1907.608695652174"/>
         </scene>
         <!--Contact UsVC-->
         <scene sceneID="Aps-Rp-UjA">
@@ -424,21 +461,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="itF-Hq-4pI">
-                                <rect key="frame" x="0.0" y="185" width="414" height="259"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yBT-kU-VW7">
+                                <rect key="frame" x="0.0" y="108" width="414" height="579"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yXE-Gm-pE6">
+                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="lW6-3z-1Ra">
+                                        <leftBarButtonItems>
+                                            <barButtonItem image="icons-goBack" id="lRv-1x-tgv">
+                                                <connections>
+                                                    <action selector="goBack" destination="yBT-kU-VW7" id="mBD-np-ym5"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="icons-goForward" id="3aO-vl-52Q">
+                                                <connections>
+                                                    <action selector="goForward" destination="yBT-kU-VW7" id="bBL-QG-0fV"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="dT6-Oy-bkh">
+                                                <connections>
+                                                    <action selector="reload" destination="yBT-kU-VW7" id="Zea-YI-89d"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem systemItem="stop" id="j4i-4O-xca">
+                                                <connections>
+                                                    <action selector="stopLoading" destination="yBT-kU-VW7" id="Y0r-hd-Yjf"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="btn_goBack" destination="lRv-1x-tgv" id="fZo-pu-NKS"/>
+                        <outlet property="btn_goForward" destination="3aO-vl-52Q" id="qqw-XP-qhb"/>
+                        <outlet property="btn_refresh" destination="dT6-Oy-bkh" id="6Nc-Ew-j4f"/>
+                        <outlet property="btn_stopLoading" destination="j4i-4O-xca" id="fyP-aA-Zoh"/>
+                        <outlet property="webView" destination="yBT-kU-VW7" id="PUc-v6-aXh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tdx-b0-b9L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5203" y="1907"/>
+            <point key="canvasLocation" x="5202.898550724638" y="1906.7934782608697"/>
         </scene>
         <!--Privacy PolicyVC-->
         <scene sceneID="T1N-6c-tI9">
@@ -452,21 +525,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fot-8G-h5O">
-                                <rect key="frame" x="0.0" y="207" width="414" height="259"/>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zbz-PH-z1G">
+                                <rect key="frame" x="0.0" y="108" width="414" height="579"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iqo-WD-RWI">
+                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="wEn-M8-fh7">
+                                        <leftBarButtonItems>
+                                            <barButtonItem image="icons-goBack" id="ba6-3z-GFz">
+                                                <connections>
+                                                    <action selector="goBack" destination="Zbz-PH-z1G" id="4Sx-XD-1RT"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="icons-goForward" id="yIa-WK-Js7">
+                                                <connections>
+                                                    <action selector="goForward" destination="Zbz-PH-z1G" id="EI5-Ra-q9Z"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="4D8-cr-e8j">
+                                                <connections>
+                                                    <action selector="reload" destination="Zbz-PH-z1G" id="ytq-ZA-iz7"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem systemItem="stop" id="bkn-vj-UCK">
+                                                <connections>
+                                                    <action selector="stopLoading" destination="Zbz-PH-z1G" id="ukF-du-kal"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="btn_goBack" destination="ba6-3z-GFz" id="jjv-Jf-NyU"/>
+                        <outlet property="btn_goForward" destination="yIa-WK-Js7" id="owe-US-pCc"/>
+                        <outlet property="btn_refresh" destination="4D8-cr-e8j" id="9hy-Ee-h6f"/>
+                        <outlet property="btn_stopLoading" destination="bkn-vj-UCK" id="Ilr-ao-Sdk"/>
+                        <outlet property="webView" destination="Zbz-PH-z1G" id="mSs-zg-B5n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbb-UY-CVv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6186" y="1909"/>
+            <point key="canvasLocation" x="6185.507246376812" y="1908.4239130434785"/>
         </scene>
         <!--Choices Pay MethodTVC-->
         <scene sceneID="2aA-pH-Ogd">
@@ -485,7 +594,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="068-Tn-3Oj">
-                                            <rect key="frame" x="21" y="8" width="89" height="87"/>
+                                            <rect key="frame" x="21" y="7" width="89" height="87"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
@@ -497,7 +606,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7F-YD-tMS">
-                                            <rect key="frame" x="321" y="39" width="53" height="30"/>
+                                            <rect key="frame" x="320" y="38" width="52" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Set">
@@ -1008,6 +1117,8 @@
     <resources>
         <image name="icon_home" width="33" height="33"/>
         <image name="icon_keranjang" width="33" height="33"/>
+        <image name="icons-goBack" width="33" height="33"/>
+        <image name="icons-goForward" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3U3-4n-lrD"/>
