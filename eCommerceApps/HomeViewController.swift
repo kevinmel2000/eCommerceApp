@@ -150,7 +150,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         sections.removeAll(keepingCapacity: false)
         items.removeAll(keepingCapacity: false)
         Alamofire.request(url, method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
-            //print(response.result.value)
             switch response.result{
             case .success(let data):
                 guard let value = data as? JSON,
@@ -162,38 +161,37 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     //self.items.append([(DaftarProduk?[j].prodCat!)!])
                 }
                 self.sections = self.removeDuplicates(array: self.sections)
-                /*for isi in self.sections{
-                    print("Isi section = \(isi)")
-                }*/
-                print("jumlah isi sections : \(self.sections.count)")
-                //print("tes: \(self.sections[5])")
+                
+                //masih ada bug di loop untuk masukin nilai items.
                 //lakukan pengulangan sebanyak jumlah isi array sections.
                 for k in 0 ..< self.sections.count{
+                    //while self.items.count < Int((DaftarProduk?.count)!) {
                     //lakukan pengulangan sebanyak isi array DaftarProduk
                     for l in 0 ..< Int((DaftarProduk?.count)!){
                         //apakah array items tidak kosong?
                         if !self.items.isEmpty {
-                            //kalau iya, apakah produk kategori pada array DaftarPoduk ke-l (yang sekarang) sama dengan nilai produk kategori pada array section ke-k (yang sekarang)?
-                            if (DaftarProduk?[l].prodCat!)! != self.sections[k]{
-                                //jika iya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
-                                self.items.append([(DaftarProduk?[l].prodName!)!])
-                            } else {
-                                //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
-                                self.items[k].append((DaftarProduk?[l].prodName!)!)
-                            }
+                            
+                                //kalau iya, apakah produk kategori pada array DaftarPoduk ke-l (yang sekarang) sama dengan nilai produk kategori pada array section ke-k (yang sekarang)?
+                                if (DaftarProduk?[l].prodCat!)! != self.sections[k]{
+                                    //jika iya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
+                                    self.items.append([(DaftarProduk?[l].prodName!)!])
+                                } else {
+                                    //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
+                                    self.items[k].append((DaftarProduk?[l].prodName!)!)
+                                }
                         } else {
                             //jika tidak (berarti array kosong), buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
                             self.items.append([(DaftarProduk?[l].prodName!)!])
                         }
                         
                     }
+                    //}
                 }
+                //masih dipake untuk debugging array items
+                print("isi items: \(self.items.count)")
                 for isi2 in self.items{
                     print("Isi item = \(isi2)")
                 }
-                /*for k in 0 ..< self.sections.count{
-                    self.items = [[(DaftarProduk?[k].prodName!)!]]
-                }*/
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
