@@ -51,6 +51,7 @@ class ChoicesPayMethodTVC: UITableViewController {
 
         cell.paymentNameLabel.text = methods[indexPath.row]
         cell.accessoryView = cell.btn_Set
+        cell.isUserInteractionEnabled = false
 
         return cell
     }

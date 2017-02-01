@@ -39,8 +39,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    let sections:Array<String> = Array <String>()
-    let items = [[String:String]]()
+    var sections:Array<String> = Array <String>()
+    var items = [[String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +59,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidAppear(_ animated: Bool) {
         get_data_for_banners(url: "https://imperio.co.id/project/ecommerceApp/promobanners.php")
+        get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/allproducts.php")
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,7 +84,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath)
         
         //cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
-        cell.accessoryType = .none
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
@@ -146,7 +147,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func get_data_from_url(url:String){
-        //TableData.removeAll(keepingCapacity: false)
+        sections.removeAll(keepingCapacity: false)
+        items.removeAll(keepingCapacity: false)
         Alamofire.request(url, method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
             //print(response.result.value)
             switch response.result{
@@ -156,17 +158,60 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     else { fatalError() }
                 let DaftarProduk = [daftarProduk].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((DaftarProduk?.count)!){
-                    //self.TableData.append((DaftarProduk?[j].prodName!)!)
-                    DispatchQueue.main.async(execute: {
-                        self.tableView.reloadData()
-                    })
+                    self.sections.append((DaftarProduk?[j].prodCat!)!)
+                    self.items.append([(DaftarProduk?[j].prodCat!)!])
                 }
+                self.sections = self.removeDuplicates(array: self.sections)
+                /*for isi in self.sections{
+                    print("Isi section = \(isi)")
+                }*/
+                print("jumlah isi sections : \(self.sections.count)")
+                /*for k in 0 ..< self.sections.count{
+                    for l in 0 ..< Int((DaftarProduk?.count)!){
+                        if k > 0 {
+                            if self.sections[k] == self.sections[k-1]{
+                                self.items.append([(DaftarProduk?[l].prodName!)!])
+                            }
+                        } else {
+                            self.items[k].append((DaftarProduk?[l].prodName!)!)
+                        }
+                        
+                    }
+                }*/
+                for isi2 in self.items{
+                    print("Isi item = \(isi2)")
+                }
+                /*for k in 0 ..< self.sections.count{
+                    self.items = [[(DaftarProduk?[k].prodName!)!]]
+                }*/
+                
+                DispatchQueue.main.async(execute: {
+                    self.tableView.reloadData()
+                })
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
                 break
             }
         }
+    }
+    
+    func removeDuplicates(array: [String])->[String] {
+        var encountered = Set<String>()
+        var result: [String] = []
+        for value in array {
+            if encountered.contains(value) {
+                // Do not add a duplicate element.
+            }
+            else {
+                encountered.insert(value)
+                result.append(value)
+            }
+        }
+        return result
     }
 }
 
