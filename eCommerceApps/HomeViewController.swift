@@ -83,7 +83,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath)
         
-        //cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
+        cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
         return cell
@@ -159,25 +159,35 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let DaftarProduk = [daftarProduk].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((DaftarProduk?.count)!){
                     self.sections.append((DaftarProduk?[j].prodCat!)!)
-                    self.items.append([(DaftarProduk?[j].prodCat!)!])
+                    //self.items.append([(DaftarProduk?[j].prodCat!)!])
                 }
                 self.sections = self.removeDuplicates(array: self.sections)
                 /*for isi in self.sections{
                     print("Isi section = \(isi)")
                 }*/
                 print("jumlah isi sections : \(self.sections.count)")
-                /*for k in 0 ..< self.sections.count{
+                //print("tes: \(self.sections[5])")
+                //lakukan pengulangan sebanyak jumlah isi array sections.
+                for k in 0 ..< self.sections.count{
+                    //lakukan pengulangan sebanyak isi array DaftarProduk
                     for l in 0 ..< Int((DaftarProduk?.count)!){
-                        if k > 0 {
-                            if self.sections[k] == self.sections[k-1]{
+                        //apakah array items tidak kosong?
+                        if !self.items.isEmpty {
+                            //kalau iya, apakah produk kategori pada array DaftarPoduk ke-l (yang sekarang) sama dengan nilai produk kategori pada array section ke-k (yang sekarang)?
+                            if (DaftarProduk?[l].prodCat!)! != self.sections[k]{
+                                //jika iya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
                                 self.items.append([(DaftarProduk?[l].prodName!)!])
+                            } else {
+                                //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
+                                self.items[k].append((DaftarProduk?[l].prodName!)!)
                             }
                         } else {
-                            self.items[k].append((DaftarProduk?[l].prodName!)!)
+                            //jika tidak (berarti array kosong), buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
+                            self.items.append([(DaftarProduk?[l].prodName!)!])
                         }
                         
                     }
-                }*/
+                }
                 for isi2 in self.items{
                     print("Isi item = \(isi2)")
                 }
