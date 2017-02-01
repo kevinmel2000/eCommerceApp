@@ -33,6 +33,7 @@
 		CF855EAC1E3EFABF005338D5 /* CustomCellPMTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855EAB1E3EFABF005338D5 /* CustomCellPMTVC.swift */; };
 		CF8EFE181E3F7E19008706E7 /* ChoicesPayMethodTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8EFE171E3F7E19008706E7 /* ChoicesPayMethodTVC.swift */; };
 		CF8EFE1A1E3F7F0C008706E7 /* CustomCellCPMTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8EFE191E3F7F0C008706E7 /* CustomCellCPMTVC.swift */; };
+		CFB4F2761E422B4000EC58E0 /* HomeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		CF855EAB1E3EFABF005338D5 /* CustomCellPMTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellPMTVC.swift; sourceTree = "<group>"; };
 		CF8EFE171E3F7E19008706E7 /* ChoicesPayMethodTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoicesPayMethodTVC.swift; sourceTree = "<group>"; };
 		CF8EFE191E3F7F0C008706E7 /* CustomCellCPMTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCPMTVC.swift; sourceTree = "<group>"; };
+		CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			children = (
 				CF514A001E39EBAD0072889C /* AppDelegate.swift */,
 				CF514A021E39EBAD0072889C /* HomeViewController.swift */,
+				CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */,
 				CF514A321E39F3340072889C /* ShoppingCartVC.swift */,
 				CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */,
 				CF855E931E3A0053005338D5 /* Gorobak.swift */,
@@ -501,6 +504,7 @@
 				CF514A011E39EBAD0072889C /* AppDelegate.swift in Sources */,
 				CF855E9A1E3AE3C3005338D5 /* ForgetPassVC.swift in Sources */,
 				CF514A351E39F3510072889C /* MoreTVC.swift in Sources */,
+				CFB4F2761E422B4000EC58E0 /* HomeTVC.swift in Sources */,
 				CF855EA41E3E1451005338D5 /* PrivacyPolicyVC.swift in Sources */,
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,
 				CF855EAA1E3EF6DA005338D5 /* PaymentMethodTVC.swift in Sources */,

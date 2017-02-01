@@ -81,9 +81,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! HomeTVC
         
-        cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
+        cell.prodNameLabel.text = self.items[indexPath.section][indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
         return cell
@@ -91,7 +91,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 134.0;//Choose your custom row height
+        return 110.0;//Choose your custom row height
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
