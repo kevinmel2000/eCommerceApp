@@ -17,6 +17,8 @@ class CustomCellCPMTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        btn_Set.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,10 +26,4 @@ class CustomCellCPMTVC: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    @IBAction func btn_Set(_ sender: UIButton) {
-        //update total price label, send notification to CartViewVC
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "btnSetPressed"), object: nil)
-    }
-
 }

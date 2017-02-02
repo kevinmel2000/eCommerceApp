@@ -21,7 +21,7 @@ class ChoicesPayMethodTVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //update total price label, get notification from CutomTableViewCell
-        //NotificationCenter.default.addObserver(self, selector: #selector(ChoicesPayMethodTVC.BtnSet), name: NSNotification.Name(rawValue: "btnSetPressed"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(ChoicesPayMethodTVC.BtnSet(_:)), name: NSNotification.Name(rawValue: "btnSetPressed"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,18 +51,25 @@ class ChoicesPayMethodTVC: UITableViewController {
 
         cell.paymentNameLabel.text = methods[indexPath.row]
         cell.accessoryView = cell.btn_Set
-        cell.isUserInteractionEnabled = false
+        cell.btn_Set.tag = indexPath.row
+        cell.accessoryView?.isUserInteractionEnabled = true
+        cell.isUserInteractionEnabled = true
+        cell.selectionStyle = .none
         cell.btn_Set.addTarget(self, action: #selector(ChoicesPayMethodTVC.BtnSet(_:)), for: UIControlEvents.touchUpInside)
 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    }
+    
+    /*override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let rowNumber = (tableView.cellForRow(at: indexPath)?.tag)!
         let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Button Set in cell number \(rowNumber) is pressed", preferredStyle: UIAlertControllerStyle.alert)
         alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
         self.present(alertStatus, animated: true, completion: nil)
-    }
+    }*/
 
     /*
     // Override to support conditional editing of the table view.
@@ -110,6 +117,8 @@ class ChoicesPayMethodTVC: UITableViewController {
     */
     
     func BtnSet(_ sender:UIButton) {
+        let TagNumber = sender.tag
+        print("Button Set Tag: \(TagNumber)")
         let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Button Set is pressed", preferredStyle: UIAlertControllerStyle.alert)
         alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
         self.present(alertStatus, animated: true, completion: nil)
