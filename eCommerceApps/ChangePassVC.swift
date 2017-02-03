@@ -72,9 +72,19 @@ class ChangePassVC: UIViewController, UITextFieldDelegate {
                 alertMakeSure.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: { (action) in
                     let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String, "old_password":self.text_oldPass.text! as String,"new_password":self.text_newPass.text! as String]
                     Alamofire.request("https://imperio.co.id/project/ecommerceApp/changepass.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
-                        //print(response.result.value)
+                        let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+                        alert.view.tintColor = UIColor.black
+                        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+                        loadingIndicator.hidesWhenStopped = true
+                        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                        loadingIndicator.startAnimating();
+                        
+                        alert.view.addSubview(loadingIndicator)
+                        self.present(alert, animated: true, completion: nil)
+                        
                         switch response.result{
                         case .success(let data):
+                            self.dismiss(animated: false, completion: nil)
                             switch data {
                             case "Your password has been changed. Please log-in again using your new password.":
                                 let alertSuccess = UIAlertController (title: "Change Password Success", message: data, preferredStyle: UIAlertControllerStyle.alert)

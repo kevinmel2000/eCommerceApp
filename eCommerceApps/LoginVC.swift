@@ -92,8 +92,19 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 if (isValidPass(pass: self.text_password.text!)) {
                     let parameterURL = ["email":"\(self.text_email.text!)", "password":"\(self.text_password.text!)"]
                     Alamofire.request("https://imperio.co.id/project/ecommerceApp/login.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+                        let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+                        alert.view.tintColor = UIColor.black
+                        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+                        loadingIndicator.hidesWhenStopped = true
+                        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                        loadingIndicator.startAnimating();
+                        
+                        alert.view.addSubview(loadingIndicator)
+                        self.present(alert, animated: true, completion: nil)
+                        
                         switch response.result{
                         case .success(let data):
+                            self.dismiss(animated: false, completion: nil)
                             guard let value = data as? JSON,
                                 let eventsArrayJSON = value["loginstatus"] as? [JSON]
                                 else { fatalError() }
@@ -111,6 +122,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                 self.performSegue(withIdentifier: "SegueFromLoginToMoreView", sender: self)
                             }
                         case .failure(let error):
+                            self.dismiss(animated: false, completion: nil)
                             print("Error request data from server: \(error)")
                             let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                             alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))

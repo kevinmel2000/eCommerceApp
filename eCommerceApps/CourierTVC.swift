@@ -94,8 +94,14 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 134.0;//Choose your custom row height
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourierCell", for: indexPath) as! CustomCellCTVC
+        cell.selectionStyle = .blue
         
         if !TableData.isEmpty {
             guard let value = TableData as? JSON,
@@ -126,8 +132,6 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             cell.label_etd.text = "ETD data is not available"
             cell.label_etd.sizeToFit()
         }
-        
-        cell.selectionStyle = .none
         
         return cell
     }
@@ -164,30 +168,33 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func get_data_user_addr(url:String){
         let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
-            //print(response.result.value)
+            let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+            alert.view.tintColor = UIColor.black
+            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            loadingIndicator.startAnimating();
+            
+            alert.view.addSubview(loadingIndicator)
+            self.present(alert, animated: true, completion: nil)
+            
             switch response.result{
             case .success(let data):
+                self.dismiss(animated: false, completion: nil)
                 guard let value = data as? JSON,
                     let eventsArrayJSON = value["userprof"] as? [JSON]
                     else { fatalError() }
                 let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((Userprofile?.count)!) {
-                    /*self.User_street.text = (Userprofile?[j].UserAddr_street!)!
-                    self.User_street.sizeToFit()
-                    self.User_city.text = (Userprofile?[j].UserAddr_city!)!
-                    self.User_city.sizeToFit()
-                    self.User_province.text = (Userprofile?[j].UserAddr_province!)!
-                    self.User_province.sizeToFit()
-                    self.User_country.text = (Userprofile?[j].UserAddr_country!)!
-                    self.User_country.sizeToFit()
-                    self.User_postalCode.text = (Userprofile?[j].UserAddr_postalCode!)!
-                    self.User_postalCode.sizeToFit()*/
-                    
                     self.get_data_from_url(url: "https://www.imperio.co.id/project/ecommerceApp/CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
                 }
                 break
             case .failure(let error):
+                self.dismiss(animated: false, completion: nil)
                 print("Error: \(error)")
+                let alert = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 break
             }
         }
@@ -198,8 +205,19 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.TableData.removeAll(keepingCapacity: false)
         let parameterURL = ["dest":city,"weight":String(Gorobak.sharedInstance.totalWeightInCart())]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+            alert.view.tintColor = UIColor.black
+            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            loadingIndicator.startAnimating();
+            
+            alert.view.addSubview(loadingIndicator)
+            self.present(alert, animated: true, completion: nil)
+            
             switch response.result{
             case .success(let data):
+                self.dismiss(animated: false, completion: nil)
                 self.TableData = data as! JSON
                 //print(self.TableData)
                 DispatchQueue.main.async(execute: {
@@ -207,7 +225,11 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 })
                 break
             case .failure(let error):
+                self.dismiss(animated: false, completion: nil)
                 print("Error: \(error)")
+                let alert = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 break
             }
         }

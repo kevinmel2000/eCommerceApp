@@ -98,16 +98,26 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
         } else {
             let parameterURL = ["name":user_name.text!, "street":user_street.text!, "city":user_city.text!, "province":user_province.text!, "country":user_country.text!, "postalCode":user_postalCode.text!, "mobileNumber":user_mobileNumber.text!]
             Alamofire.request("https://imperio.co.id/project/ecommerceApp/updateUserProfile.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
-                //print(response.result.value)
+                /*let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+                alert.view.tintColor = UIColor.black
+                let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+                loadingIndicator.hidesWhenStopped = true
+                loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                loadingIndicator.startAnimating();
+                
+                alert.view.addSubview(loadingIndicator)
+                self.present(alert, animated: true, completion: nil)*/
+                
                 switch response.result{
                 case .success(let data):
+                    //self.dismiss(animated: false, completion: nil)
                     if data == "User profile data input success." {
                         let alertStatus = UIAlertController (title: "eCommerce App Message", message: data, preferredStyle: UIAlertControllerStyle.alert)
                         alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
                             switch  self.VCOrigin {
-                            case "UserProfileVC":
+                            case "SegueToUpdateProfFromUserProf":
                                 self.navigationController?.popViewController(animated: true)
-                            case "SignUpVC":
+                            case "SegueToUpdateProfFromSignUp":
                                 self.performSegue(withIdentifier: "SegueFromUpdateProfToMoreView", sender: self)
                             default:
                                 break
@@ -117,6 +127,7 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
                     }
                     break
                 case .failure(let error):
+                    //self.dismiss(animated: false, completion: nil)
                     print("Error: \(error)")
                     let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                     alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
@@ -138,9 +149,9 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
      */
     
     func get_data_from_url(url:String){
-        //let queue = DispatchQueue(label: "com.luthfifr-queue", qos: .utility, attributes: [.concurrent])
         let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            
             switch response.result{
             case .success(let data):
                 guard let value = data as? JSON,
@@ -160,7 +171,11 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
                 }
                 break
             case .failure(let error):
+                
                 print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
                 break
             }
         }

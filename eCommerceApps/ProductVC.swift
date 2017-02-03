@@ -73,6 +73,8 @@ class ProductVC: UIViewController {
         
         Prod_Add2Cart.layer.cornerRadius = 5
         Prod_Add2Wishlist.layer.cornerRadius = 5
+        Prod_Add2Cart.isEnabled = false
+        Prod_Add2Wishlist.isEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,8 +119,19 @@ class ProductVC: UIViewController {
     
     func get_data_from_url(url:String){
         Alamofire.request(url, method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
+            let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+            alert.view.tintColor = UIColor.black
+            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            loadingIndicator.startAnimating();
+            
+            alert.view.addSubview(loadingIndicator)
+            self.present(alert, animated: true, completion: nil)
+            
             switch response.result{
             case .success(let data):
+                self.dismiss(animated: false, completion: nil)
                 guard let value = data as? JSON,
                     let eventsArrayJSON = value["ProdukDetail"] as? [JSON]
                     else { fatalError() }
@@ -159,9 +172,12 @@ class ProductVC: UIViewController {
                     }
                     self.Prod_desc.text = DetailProduk?[j].prodDesc!
                     //self.Prod_desc.sizeToFit()
+                    self.Prod_Add2Cart.isEnabled = true
+                    self.Prod_Add2Wishlist.isEnabled = true
                 }
                 break
             case .failure(let error):
+                self.dismiss(animated: false, completion: nil)
                 print("Error: \(error)")
                 let alert = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
