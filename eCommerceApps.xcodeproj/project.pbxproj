@@ -38,6 +38,7 @@
 		CFC3BB851E43151E0027ECCE /* WishlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB841E43151E0027ECCE /* WishlistVC.swift */; };
 		CFC3BB871E43544A0027ECCE /* CourierTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB861E43544A0027ECCE /* CourierTVC.swift */; };
 		CFC3BB891E4354910027ECCE /* CustomCellCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */; };
+		CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8A1E4888980027ECCE /* Reachability.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		CFC3BB841E43151E0027ECCE /* WishlistVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistVC.swift; sourceTree = "<group>"; };
 		CFC3BB861E43544A0027ECCE /* CourierTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourierTVC.swift; sourceTree = "<group>"; };
 		CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCTVC.swift; sourceTree = "<group>"; };
+		CFC3BB8A1E4888980027ECCE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				CF514A001E39EBAD0072889C /* AppDelegate.swift */,
+				CFC3BB8A1E4888980027ECCE /* Reachability.swift */,
 				CF514A021E39EBAD0072889C /* HomeViewController.swift */,
 				CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */,
 				CFB4F2771E4265E500EC58E0 /* ProductVC.swift */,
@@ -525,6 +528,7 @@
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,
 				CF855EAA1E3EF6DA005338D5 /* PaymentMethodTVC.swift in Sources */,
 				CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */,
+				CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */,
 				CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

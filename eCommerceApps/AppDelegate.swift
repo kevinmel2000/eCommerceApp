@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

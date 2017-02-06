@@ -58,8 +58,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        get_data_for_banners(url: "https://imperio.co.id/project/ecommerceApp/promobanners.php")
-        get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/allproducts.php")
+        if Reachability.isConnectedToNetwork() == false {
+            let alert1 = UIAlertController (title: "Internet Connection Error", message: "This app requires internet connection to be used. Make sure your device is connected to the internet.", preferredStyle: UIAlertControllerStyle.alert)
+            alert1.addAction(UIAlertAction(title: "Close App", style: UIAlertActionStyle.default,handler: {(action) in
+                exit(0)
+            }))
+            self.present(alert1, animated: true, completion: nil)
+        } else {
+            get_data_for_banners(url: "https://imperio.co.id/project/ecommerceApp/promobanners.php")
+            get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/allproducts.php")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -190,7 +198,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let DaftarProduk = [daftarProduk].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((DaftarProduk?.count)!){
                     self.sections.append((DaftarProduk?[j].prodCat!)!)
-                    //self.items.append([(DaftarProduk?[j].prodCat!)!])
                 }
                 self.sections = self.removeDuplicates(array: self.sections)
                 

@@ -202,17 +202,7 @@ class WishlistVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func btn_refresh(_ sender: UIBarButtonItem) {
-        if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
-            if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
-                get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/show_wishlist.php")
-            }
-        } else {
-            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
-            alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
-                self.navigationController?.popViewController(animated: true)
-            }))
-            self.present(alertStatus, animated: true, completion: nil)
-        }
+        get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/show_wishlist.php")
     }
     
 
