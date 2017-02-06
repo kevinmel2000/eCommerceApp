@@ -553,16 +553,17 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="CheckOutButton:" destination="uAg-hG-NZZ" eventType="touchUpInside" id="SRJ-UP-ssi"/>
+                                    <action selector="btn_checkOut:" destination="CWP-Dn-Vx1" eventType="touchUpInside" id="cGA-lk-O7v"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="btn_toPayment" destination="goP-yB-LlY" id="EKz-ar-BhR"/>
+                        <outlet property="btn_checkOut" destination="goP-yB-LlY" id="4DA-ds-ZR0"/>
                         <outlet property="tableView" destination="kuC-xp-eFb" id="H5n-XN-9cY"/>
                         <outlet property="totalCost" destination="Pe8-EI-may" id="kBA-ms-Ljh"/>
+                        <segue destination="z8N-b3-I9k" kind="presentation" identifier="SegueFinishCheckOut" id="Xk4-cc-WgV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLg-Za-o60" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1563,9 +1564,9 @@
         <image name="icons-goForward" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b41-AK-iUc"/>
+        <segue reference="Xk4-cc-WgV"/>
         <segue reference="3U3-4n-lrD"/>
-        <segue reference="1Tj-4f-BeI"/>
         <segue reference="wCB-Hm-Tft"/>
+        <segue reference="b41-AK-iUc"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -39,6 +39,7 @@
 		CFC3BB871E43544A0027ECCE /* CourierTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB861E43544A0027ECCE /* CourierTVC.swift */; };
 		CFC3BB891E4354910027ECCE /* CustomCellCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */; };
 		CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8A1E4888980027ECCE /* Reachability.swift */; };
+		CFC3BB8D1E48BDFF0027ECCE /* InvoiceComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8C1E48BDFF0027ECCE /* InvoiceComposer.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		CFC3BB861E43544A0027ECCE /* CourierTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourierTVC.swift; sourceTree = "<group>"; };
 		CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCTVC.swift; sourceTree = "<group>"; };
 		CFC3BB8A1E4888980027ECCE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		CFC3BB8C1E48BDFF0027ECCE /* InvoiceComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceComposer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				CF855E931E3A0053005338D5 /* Gorobak.swift */,
 				CFC3BB861E43544A0027ECCE /* CourierTVC.swift */,
 				CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */,
+				CFC3BB8C1E48BDFF0027ECCE /* InvoiceComposer.swift */,
 				CF514A341E39F3510072889C /* MoreTVC.swift */,
 				CF855E971E3ACA19005338D5 /* LoginVC.swift */,
 				CF855E9B1E3DBF34005338D5 /* SignUpVC.swift */,
@@ -514,6 +517,7 @@
 				CF855EA61E3E1BFD005338D5 /* ChangePassVC.swift in Sources */,
 				CF8EFE181E3F7E19008706E7 /* ChoicesPayMethodTVC.swift in Sources */,
 				CF855E9C1E3DBF34005338D5 /* SignUpVC.swift in Sources */,
+				CFC3BB8D1E48BDFF0027ECCE /* InvoiceComposer.swift in Sources */,
 				CF514A031E39EBAD0072889C /* HomeViewController.swift in Sources */,
 				CF855E9E1E3DCEDF005338D5 /* UserProfileVC.swift in Sources */,
 				CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */,

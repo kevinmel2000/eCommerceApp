@@ -44,12 +44,23 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    struct CreateInvoice: Decodable {
+        let status: String?
+        let message: String?
+        
+        init?(json: JSON) {
+            self.status = "status" <~~ json
+            self.message = "message" <~~ json
+        }
+    }
+    
     var TableData = [String:Any]()
     let userdefault = UserDefaults.standard
+    let cart = Gorobak.sharedInstance
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalCost: UILabel!
-    @IBOutlet weak var btn_toPayment: UIButton!
+    @IBOutlet weak var btn_checkOut: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +124,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             cell.label_shippingCourier.sizeToFit()
             cell.label_serviceName.text = CourierList?[indexPath.row].service!
             cell.label_serviceName.sizeToFit()
-            cell.label_estCost.text = Gorobak.sharedInstance.getCurrencyCode()+" "+String(describing: (CourierList?[indexPath.row].cost!)!)
+            cell.label_estCost.text = cart.getCurrencyCode()+" "+String(describing: (CourierList?[indexPath.row].cost!)!)
             cell.label_estCost.sizeToFit()
             if (CourierList?[indexPath.row].etd! == "") {
                 cell.label_etd.text = "ETD data is not available"
@@ -140,7 +151,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let currentCell = tableView.cellForRow(at: indexPath)! as! CustomCellCTVC
         currentCell.backgroundColor = UIColor(red:255/255, green:255/255, blue:255/255, alpha: 1.0)
         if(((currentCell.label_estCost.text) != "") && ((currentCell.label_estCost.text) != nil)){
-            Gorobak.sharedInstance.AddShippingCost(currentCell.label_shippingCourier.text!, service:currentCell.label_serviceName.text!, cost: currentCell.label_estCost.text!)
+            cart.AddShippingCost(currentCell.label_shippingCourier.text!, service:currentCell.label_serviceName.text!, cost: currentCell.label_estCost.text!)
         }
         updateTotalCostsLabel()
     }
@@ -155,11 +166,16 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
      }
      */
     
-    @IBAction func btn_toPayment(_ sender: UIButton) {
-        if (Gorobak.sharedInstance.getShippingCost() != 0){
-            performSegue(withIdentifier: "SegueFromShipmentToPayment", sender: self)
+    @IBAction func btn_checkOut(_ sender: UIButton) {
+        if (cart.getShippingCost() != 0){
+            let alert1 = UIAlertController (title: "DSC App Message", message: "Are you sure want to check out?", preferredStyle: UIAlertControllerStyle.alert)
+            alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:{(action) in
+                self.createInvoice(paymentType: "Bank Transfer")
+            }))
+            alert1.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive,handler:nil))
+            self.present(alert1, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController (title: "eCommerce App Message", message: "Please select a courier service company.", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController (title: "DSC App Message", message: "Please select a courier service company.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -203,7 +219,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     //untuk ngambil data dari server
     func get_data_from_url(url:String, city:String){
         self.TableData.removeAll(keepingCapacity: false)
-        let parameterURL = ["dest":city,"weight":String(Gorobak.sharedInstance.totalWeightInCart())]
+        let parameterURL = ["dest":city,"weight":String(cart.totalWeightInCart())]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
             let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
             alert.view.tintColor = UIColor.black
@@ -236,7 +252,46 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func updateTotalCostsLabel() {
-        totalCost.text = String(Gorobak.sharedInstance.totalPriceInCart()+Gorobak.sharedInstance.getShippingCost())
+        totalCost.text = String(cart.totalPriceInCart()+cart.getShippingCost())
+    }
+    
+    func createInvoice(paymentType: String) {
+        let valid = JSONSerialization.isValidJSONObject(cart.prepareForConvesionToJSON())
+        if valid {
+            if let productsJSON = try? JSONSerialization.data(withJSONObject: cart.prepareForConvesionToJSON(), options: .prettyPrinted) {
+                let strJSON = String(bytes: productsJSON, encoding: .utf8)
+                //let strJSONfinal = "\""+strJSON!+"\""
+                let parameterURL=["products":strJSON!,"subtotal":String(cart.totalPriceInCart()),"tax":String(cart.calculateTax(true)),"weight":String(cart.totalWeightInCart()),"shipper":String(cart.getShipperData().0),"shipperService":String(cart.getShipperData().1),"shippingCost":String(cart.getShippingCost()),"paymentMethod":paymentType]
+                //print(parameterURL)
+                Alamofire.request("https://www.imperio.co.id/project/ecommerceApp/createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+                    switch response.result{
+                    case .success(let data):
+                        guard let value = data as? JSON,
+                            let eventsArrayJSON = value["InvoiceStatus"] as? [JSON]
+                            else { fatalError() }
+                        let createinvoice = [CreateInvoice].from(jsonArray: eventsArrayJSON)
+                        for j in 0 ..< Int((createinvoice?.count)!) {
+                            let alert = UIAlertController (title: "\((createinvoice?[0].status!)!) To Create Invoice", message: (createinvoice?[j].message!)!, preferredStyle: UIAlertControllerStyle.alert)
+                            if (createinvoice?[j].status!)! == "Success" {
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: {action in
+                                    self.cart.deleteAllDataInCart()
+                                    self.performSegue(withIdentifier: "SegueFinishCheckOut", sender: self)
+                                }))
+                            } else {
+                                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                            }
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        break
+                    case .failure(let error):
+                        let alert = UIAlertController (title: "Error", message: String(describing: error), preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        break
+                    }
+                }
+            }
+        }
     }
 
 }

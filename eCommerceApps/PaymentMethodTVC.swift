@@ -11,7 +11,7 @@ import Alamofire
 
 class PaymentMethodTVC: UITableViewController {
 
-    //let TableData = ["Cash On Delivery", "Bank Transfer"]
+    let TableData = ["Bank Transfer"]
     //var TableData:Array<String> = Array <String>()
     
     let userdefault = UserDefaults.standard
@@ -67,7 +67,7 @@ class PaymentMethodTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath as IndexPath) as! CustomCellPMTVC
         
         cell.accessoryType = .disclosureIndicator
-        cell.paymentNameLabel.text = "Bank Transfer"//TableData[indexPath.row]
+        cell.paymentNameLabel.text = TableData[indexPath.row]
         
         
         return cell
