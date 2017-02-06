@@ -40,6 +40,7 @@
 		CFC3BB891E4354910027ECCE /* CustomCellCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */; };
 		CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8A1E4888980027ECCE /* Reachability.swift */; };
 		CFC3BB8D1E48BDFF0027ECCE /* InvoiceComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8C1E48BDFF0027ECCE /* InvoiceComposer.swift */; };
+		CFC3BB8F1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB8E1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift */; };
 		E8BF65FA41560B30C2D67066 /* Pods_eCommerceAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4C746570792B9E40E63CD8 /* Pods_eCommerceAppsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCTVC.swift; sourceTree = "<group>"; };
 		CFC3BB8A1E4888980027ECCE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		CFC3BB8C1E48BDFF0027ECCE /* InvoiceComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceComposer.swift; sourceTree = "<group>"; };
+		CFC3BB8E1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellOrderHistoryTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				CF8EFE171E3F7E19008706E7 /* ChoicesPayMethodTVC.swift */,
 				CF8EFE191E3F7F0C008706E7 /* CustomCellCPMTVC.swift */,
 				CF855EA71E3E2146005338D5 /* OrderHistoryVC.swift */,
+				CFC3BB8E1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift */,
 				CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */,
 				CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */,
 				CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */,
@@ -532,6 +535,7 @@
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,
 				CF855EAA1E3EF6DA005338D5 /* PaymentMethodTVC.swift in Sources */,
 				CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */,
+				CFC3BB8F1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift in Sources */,
 				CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */,
 				CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */,
 			);

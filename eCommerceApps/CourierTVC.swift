@@ -261,7 +261,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             if let productsJSON = try? JSONSerialization.data(withJSONObject: cart.prepareForConvesionToJSON(), options: .prettyPrinted) {
                 let strJSON = String(bytes: productsJSON, encoding: .utf8)
                 //let strJSONfinal = "\""+strJSON!+"\""
-                let parameterURL=["products":strJSON!,"subtotal":String(cart.totalPriceInCart()),"tax":String(cart.calculateTax(true)),"weight":String(cart.totalWeightInCart()),"shipper":String(cart.getShipperData().0),"shipperService":String(cart.getShipperData().1),"shippingCost":String(cart.getShippingCost()),"paymentMethod":paymentType]
+                let parameterURL=["userid":userdefault.object(forKey: "userid") as! String, "products":strJSON!,"subtotal":String(cart.totalPriceInCart()),"tax":String(cart.calculateTax(true)),"weight":String(cart.totalWeightInCart()),"shipper":String(cart.getShipperData().0),"shipperService":String(cart.getShipperData().1),"shippingCost":String(cart.getShippingCost()),"paymentMethod":paymentType]
                 //print(parameterURL)
                 Alamofire.request("https://www.imperio.co.id/project/ecommerceApp/createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
                     switch response.result{
