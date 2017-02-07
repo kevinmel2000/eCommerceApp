@@ -14,6 +14,8 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
     var TableData = [String:Any]()
     
+    var selectedInvoiceIndex: Int!
+    
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -116,10 +118,11 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
-        if(((currentCell.textLabel!.text) != "") && ((currentCell.textLabel!.text) != nil)){
-            //performSegue(withIdentifier: "SegueWishlist", sender: self)
+        let currentCell = tableView.cellForRow(at: indexPath)! as! CustomCellOrderHistoryTVC
+        if(((currentCell.inv_number.text) != "") && ((currentCell.inv_number.text) != nil) && ((currentCell.created_date.text) != "") && ((currentCell.created_date.text) != nil)){
+            performSegue(withIdentifier: "SeguePreviewInvoice", sender: self)
         }
+        //selectedInvoiceIndex = indexPath.row
     }
     
     /*
@@ -157,19 +160,29 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
      }
      */
     
-    /*
+    
      // MARK: - Navigation
      
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+            // Get the new view controller using segue.destinationViewController.
+            // Pass the selected object to the new view controller.
+            let destVc = segue.destination as! PreviewInvoiceVC
+            if segue.identifier == "SeguePreviewInvoice"{
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    // get the cell associated with the indexPath selected.
+                    let currentCell = tableView.cellForRow(at: indexPath)! as! CustomCellOrderHistoryTVC
+                    destVc.invoiceNumber = (currentCell.inv_number.text)! as String
+                    print("Selected Invoice Number = \((currentCell.inv_number.text)!)")
+                    destVc.invoiceDate = (currentCell.created_date.text)! as String
+                    print("Selected Invoice Date = \((currentCell.created_date.text)!)")
+                }
+            }
      }
-     */
+    
     func checkEmptyState() {
         setEmptyViewVisible(visible: TableData.count == 0)
     }
-    
+ 
     func setEmptyViewVisible(visible: Bool) {
         emptyView.isHidden = !visible
         if visible {

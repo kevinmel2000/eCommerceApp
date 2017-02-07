@@ -734,6 +734,7 @@
                     <connections>
                         <outlet property="emptyView" destination="6Lm-km-ITF" id="J5H-gq-sCm"/>
                         <outlet property="tableView" destination="806-t5-LN5" id="FKi-wi-Frd"/>
+                        <segue destination="g86-Rq-9dC" kind="show" identifier="SeguePreviewInvoice" id="OhC-Ta-AIt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1e-9m-hjl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1048,6 +1049,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbb-UY-CVv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2217" y="2738"/>
+        </scene>
+        <!--Preview InvoiceVC-->
+        <scene sceneID="pve-Az-Tgd">
+            <objects>
+                <viewController id="g86-Rq-9dC" customClass="PreviewInvoiceVC" customModule="eCommerceApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1Gg-KY-GIH"/>
+                        <viewControllerLayoutGuide type="bottom" id="NQC-14-z5i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hop-HW-Ne5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8X-f4-KZM">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="webPreview" destination="v8X-f4-KZM" id="zdT-Gv-q5F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXe-Z3-na8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4473.913043478261" y="1754.3478260869567"/>
         </scene>
         <!--Choices Pay MethodTVC-->
         <scene sceneID="2aA-pH-Ogd">

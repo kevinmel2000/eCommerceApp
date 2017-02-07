@@ -20,9 +20,9 @@ class InvoiceComposer: NSObject {
     
     let dueDate = ""
     
-    let paymentMethod = "Wire Transfer"
+    let paymentMethod = "Bank Transfer"
     
-    let logoImageURL = "http://www.appcoda.com/wp-content/uploads/2015/12/blog-logo-dark-400.png"
+    let logoImageURL = "https://www.imperio.co.id/project/ecommerceApp/Logo_DSC.png"
     
     var invoiceNumber: String!
     
