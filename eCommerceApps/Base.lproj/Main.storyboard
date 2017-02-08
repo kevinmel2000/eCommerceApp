@@ -1142,10 +1142,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eKt-a6-955" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icon_home" id="4hX-S0-WMo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u9p-sh-77w">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u9p-sh-77w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1162,10 +1166,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aXZ-XA-3jf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Shopping Cart" image="icon_keranjang" id="yvY-gx-b6c"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5zc-hs-Ziw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5zc-hs-Ziw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1182,10 +1190,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xTW-YM-9xb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="more" id="Bsb-Rn-Js4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s0b-oS-gC3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="s0b-oS-gC3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.73333333329999995" green="0.76470588240000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
