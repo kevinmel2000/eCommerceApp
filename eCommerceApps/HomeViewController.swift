@@ -90,8 +90,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! HomeTVC
-        
+        cell.backgroundColor = UIColor(red: 209.0/255.0, green: 26.0/255.0, blue: 81.0/255.0, alpha: 1.0)
         cell.prodNameLabel.text = self.items[indexPath.section][indexPath.row]
+        cell.prodNameLabel.textColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        cell.imageProd.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         cell.accessoryType = .disclosureIndicator
         
         return cell
