@@ -43,6 +43,18 @@ class MoreTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sections[section]
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 25))
+        returnedView.backgroundColor = .lightGray
+        
+        let label = UILabel(frame: CGRect(x: 10, y: 3, width: view.frame.size.width, height: 25))
+        label.text = self.sections[section] //self.sectionHeaderTitleArray[section]
+        label.textColor = .white
+        returnedView.addSubview(label)
+        
+        return returnedView
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
