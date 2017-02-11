@@ -1885,9 +1885,16 @@
         <image name="icons-goForward" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
+<!--<<<<<<< HEAD-->
         <segue reference="1Tj-4f-BeI"/>
         <segue reference="b41-AK-iUc"/>
         <segue reference="KTU-X0-5q9"/>
         <segue reference="aSr-rg-oHi"/>
+<!--=======-->
+        <segue reference="1Tj-4f-BeI"/>
+        <segue reference="b41-AK-iUc"/>
+        <segue reference="KTU-X0-5q9"/>
+        <segue reference="aSr-rg-oHi"/>
+<!-->>>>>>> ab441700f5310fd15e8fae248748f7d77b51c02f-->
     </inferredMetricsTieBreakers>
 </document>
