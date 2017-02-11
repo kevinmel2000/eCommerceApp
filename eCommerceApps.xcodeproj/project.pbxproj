@@ -18,6 +18,8 @@
 		CF514A211E39EBAE0072889C /* eCommerceAppsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF514A201E39EBAE0072889C /* eCommerceAppsUITests.swift */; };
 		CF514A331E39F3340072889C /* ShoppingCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF514A321E39F3340072889C /* ShoppingCartVC.swift */; };
 		CF514A351E39F3510072889C /* MoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF514A341E39F3510072889C /* MoreTVC.swift */; };
+		CF5CD0661E4F6F45009E843E /* PayConfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5CD0651E4F6F45009E843E /* PayConfVC.swift */; };
+		CF5CD0681E4F6F73009E843E /* RefundReqVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5CD0671E4F6F73009E843E /* RefundReqVC.swift */; };
 		CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E931E3A0053005338D5 /* Gorobak.swift */; };
 		CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */; };
 		CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF855E971E3ACA19005338D5 /* LoginVC.swift */; };
@@ -90,6 +92,8 @@
 		CF514A221E39EBAE0072889C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF514A321E39F3340072889C /* ShoppingCartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingCartVC.swift; sourceTree = "<group>"; };
 		CF514A341E39F3510072889C /* MoreTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTVC.swift; sourceTree = "<group>"; };
+		CF5CD0651E4F6F45009E843E /* PayConfVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayConfVC.swift; sourceTree = "<group>"; };
+		CF5CD0671E4F6F73009E843E /* RefundReqVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundReqVC.swift; sourceTree = "<group>"; };
 		CF855E931E3A0053005338D5 /* Gorobak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gorobak.swift; sourceTree = "<group>"; };
 		CF855E951E3AC493005338D5 /* CustomCellShoppingCartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellShoppingCartVC.swift; sourceTree = "<group>"; };
 		CF855E971E3ACA19005338D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				CF855E9F1E3E1339005338D5 /* AboutUsVC.swift */,
 				CF855EA11E3E13D4005338D5 /* ContactUsVC.swift */,
 				CF855EA31E3E1451005338D5 /* PrivacyPolicyVC.swift */,
+				CF5CD0651E4F6F45009E843E /* PayConfVC.swift */,
+				CF5CD0671E4F6F73009E843E /* RefundReqVC.swift */,
 				CF514A041E39EBAD0072889C /* Main.storyboard */,
 				CF514A071E39EBAE0072889C /* Assets.xcassets */,
 				CF514A091E39EBAE0072889C /* LaunchScreen.storyboard */,
@@ -545,6 +551,7 @@
 				CF855E9C1E3DBF34005338D5 /* SignUpVC.swift in Sources */,
 				CFC3BB8D1E48BDFF0027ECCE /* InvoiceComposer.swift in Sources */,
 				CF514A031E39EBAD0072889C /* HomeViewController.swift in Sources */,
+				CF5CD0681E4F6F73009E843E /* RefundReqVC.swift in Sources */,
 				CF855E9E1E3DCEDF005338D5 /* UserProfileVC.swift in Sources */,
 				CF855E981E3ACA19005338D5 /* LoginVC.swift in Sources */,
 				CF855EA21E3E13D4005338D5 /* ContactUsVC.swift in Sources */,
@@ -559,6 +566,7 @@
 				CF855E941E3A0053005338D5 /* Gorobak.swift in Sources */,
 				CF855EAA1E3EF6DA005338D5 /* PaymentMethodTVC.swift in Sources */,
 				CF855E961E3AC493005338D5 /* CustomCellShoppingCartVC.swift in Sources */,
+				CF5CD0661E4F6F45009E843E /* PayConfVC.swift in Sources */,
 				CFC3BB8F1E48F1F20027ECCE /* CustomCellOrderHistoryTVC.swift in Sources */,
 				CFC3BB8B1E4888980027ECCE /* Reachability.swift in Sources */,
 				CF855EA01E3E1339005338D5 /* AboutUsVC.swift in Sources */,

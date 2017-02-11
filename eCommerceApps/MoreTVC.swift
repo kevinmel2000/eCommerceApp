@@ -11,7 +11,7 @@ import UIKit
 class MoreTVC: UITableViewController {
     
     let sections = ["Account", "About", "Version 1 (Build 1)"]
-    var items = [["Change Password", "User Info", "Wishlist", "Payment Method", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
+    var items = [["Change Password", "User Info", "Wishlist", "Payment Method", "Payment Confirmation", "Request For Refund", "Order History"], ["About Us", "Contact Us", "Privacy Policy"], ["Log In"]]
     
     let userdefault = UserDefaults.standard
 
@@ -71,6 +71,10 @@ class MoreTVC: UITableViewController {
                 performSegue(withIdentifier: "SegueWishlist", sender: self)
             case "Payment Method":
                 performSegue(withIdentifier: "SeguePaymentMethod", sender: self)
+            case "Payment Confirmation":
+                performSegue(withIdentifier: "SeguePayConf", sender: self)
+            case "Request For Refund":
+                performSegue(withIdentifier: "SegueRefundReq", sender: self)
             case "Order History":
                 performSegue(withIdentifier: "SegueOrderHistory", sender: self)
             case "About Us":
