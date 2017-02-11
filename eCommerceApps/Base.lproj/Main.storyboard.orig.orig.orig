@@ -39,7 +39,14 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7c8-hv-ncv" id="6qo-Br-Aik">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo(2)
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bb8-hk-Yn1">
@@ -1885,20 +1892,34 @@
         <image name="icons-goForward" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<!--<<<<<<< HEAD-->
+=======
 <!--<<<<<<< HEAD-->
 <<<<<<< HEAD
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo(2)
         <segue reference="1Tj-4f-BeI"/>
         <segue reference="b41-AK-iUc"/>
         <segue reference="KTU-X0-5q9"/>
         <segue reference="aSr-rg-oHi"/>
 <!--=======-->
+<<<<<<< HEAD
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo
+=======
 =======
 >>>>>>> 3ff74946222491a04576917f63ff73fb8a19faca
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo(2)
         <segue reference="1Tj-4f-BeI"/>
         <segue reference="b41-AK-iUc"/>
         <segue reference="KTU-X0-5q9"/>
         <segue reference="aSr-rg-oHi"/>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<!-->>>>>>> ab441700f5310fd15e8fae248748f7d77b51c02f-->
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo
 =======
 <!--=======-->
         <segue reference="1Tj-4f-BeI"/>
@@ -1907,5 +1928,6 @@
         <segue reference="aSr-rg-oHi"/>
 >>>>>>> 3ff74946222491a04576917f63ff73fb8a19faca
 <!-->>>>>>> ab441700f5310fd15e8fae248748f7d77b51c02f-->
+>>>>>>> nge-comment tulisan muncul akibat git merge dari remote repo(2)
     </inferredMetricsTieBreakers>
 </document>
