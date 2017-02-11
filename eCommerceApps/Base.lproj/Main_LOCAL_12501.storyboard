@@ -1881,4 +1881,10 @@
         <image name="icons-goBack" width="33" height="33"/>
         <image name="icons-goForward" width="33" height="33"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Xk4-cc-WgV"/>
+        <segue reference="wYN-0r-nL1"/>
+        <segue reference="3U3-4n-lrD"/>
+        <segue reference="wCB-Hm-Tft"/>
+    </inferredMetricsTieBreakers>
 </document>
