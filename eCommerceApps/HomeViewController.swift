@@ -65,8 +65,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }))
             self.present(alert1, animated: true, completion: nil)
         } else {
-            get_data_for_banners(url: "https://imperio.co.id/project/ecommerceApp/promobanners.php")
-            get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/allproducts.php")
+            get_data_for_banners(url: BaseURL.rootURL()+"promobanners.php")
+            get_data_from_url(url: BaseURL.rootURL()+"allproducts.php")
         }
     }
 
