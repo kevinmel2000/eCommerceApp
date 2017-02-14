@@ -39,7 +39,7 @@ class OrderHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelega
                 tableView.dataSource = self
                 tableView.delegate = self
                 
-                get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/getInvoices.php")
+                get_data_from_url(url: BaseURL.rootURL()+"getInvoices.php")
             }
         } else {
             let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)

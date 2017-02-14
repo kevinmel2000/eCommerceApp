@@ -71,7 +71,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        get_data_user_addr(url:"https://imperio.co.id/project/ecommerceApp/userprofile.php")
+        get_data_user_addr(url: BaseURL.rootURL()+"userprofile.php")
     }
     
     override func viewDidAppear(_ animated: Bool) {

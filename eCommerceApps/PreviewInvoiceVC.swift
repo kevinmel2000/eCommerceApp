@@ -75,7 +75,7 @@ class PreviewInvoiceVC: UIViewController {
             print("Isi items: \(item)")
         }
         totalAmount = "0.0"
-        get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
+        get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
     }
     
     

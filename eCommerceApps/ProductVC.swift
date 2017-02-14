@@ -84,8 +84,8 @@ class ProductVC: UIViewController {
         
         let userID = userdefault.object(forKey: "userid") as? String
         if (userID != nil) {
-            get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/produkdetail.php?produk=\(ProductName!)&userid=\(userID!)")
-            Alamofire.request("https://imperio.co.id/project/ecommerceApp/check_wishlist.php?userid=\(userID!)&prodname=\(ProductName!)", method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
+            get_data_from_url(url: BaseURL.rootURL()+"produkdetail.php?produk=\(ProductName!)&userid=\(userID!)")
+            Alamofire.request(BaseURL.rootURL()+"check_wishlist.php?userid=\(userID!)&prodname=\(ProductName!)", method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
                 switch response.result{
                 case .success(let data):
                     guard let value = data as? JSON,
@@ -108,7 +108,7 @@ class ProductVC: UIViewController {
                 }
             }
         } else {
-            get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/produkdetail.php?produk=\(ProductName!)")
+            get_data_from_url(url: BaseURL.rootURL()+"produkdetail.php?produk=\(ProductName!)")
         }
     }
     

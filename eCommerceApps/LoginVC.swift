@@ -91,7 +91,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             if (isValidEmail(email: self.text_email.text!)) {
                 if (isValidPass(pass: self.text_password.text!)) {
                     let parameterURL = ["email":"\(self.text_email.text!)", "password":"\(self.text_password.text!)"]
-                    Alamofire.request("https://imperio.co.id/project/ecommerceApp/login.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+                    Alamofire.request(BaseURL.rootURL()+"login.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
                         
                         switch response.result{
                         case .success(let data):

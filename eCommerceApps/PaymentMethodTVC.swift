@@ -26,7 +26,7 @@ class PaymentMethodTVC: UITableViewController {
         self.tableView.tableFooterView = UIView()
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
             if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
-                get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
+                get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
             }
         } else {
             let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)

@@ -46,7 +46,7 @@ class ForgetPassVC: UIViewController, UITextFieldDelegate {
         if (!((self.text_email.text?.isEmpty)!)) {
             if (isValidEmail(email: self.text_email.text!)) {
                 let parameterURL = ["email":"\(self.text_email.text!)"]
-                Alamofire.request("https://imperio.co.id/project/ecommerceApp/forgotpass.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
+                Alamofire.request(BaseURL.rootURL()+"forgotpass.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
                     let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
                     alert.view.tintColor = UIColor.black
                     let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))

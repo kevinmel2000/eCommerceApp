@@ -70,7 +70,7 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
                 user_postalCode.delegate = self
                 user_country.delegate = self
                 
-                get_data_from_url(url: "https://imperio.co.id/project/ecommerceApp/userprofile.php")
+                get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
             }
         } else {
             let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
