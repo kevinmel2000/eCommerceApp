@@ -128,7 +128,7 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.present(alertStatus, animated: true, completion: nil)
         } else {
             let parameterURL = ["invoice":invoiceNumber.text!,"transferto":transferTo.text!, "senderbank":senderBank.text!,"senderaccnum":senderAccNumber.text!,"transferamount":transferAmount.text!]
-            Alamofire.request("", parameters:parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            Alamofire.request(BaseURL.rootURL()+"", parameters:parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
                 switch response.result{
                 case .success(let data):
                     guard let value = data as? JSON,
