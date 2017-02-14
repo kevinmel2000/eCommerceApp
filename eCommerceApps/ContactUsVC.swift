@@ -22,6 +22,8 @@ class ContactUsVC: UIViewController {
         super.viewDidLoad()
         self.title = "Contact Us"
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         let url = NSURL(string: "http://neutroncreations.com/contact/")
         let request = NSURLRequest(url: url! as URL)
         webView.loadRequest(request as URLRequest)

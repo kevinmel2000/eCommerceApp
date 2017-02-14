@@ -22,6 +22,8 @@ class AboutUsVC: UIViewController {
         super.viewDidLoad()
         self.title = "About Us"
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         let url = NSURL(string: "http://www.drxlr.com/about/")
         let request = NSURLRequest(url: url! as URL)
         webView.loadRequest(request as URLRequest)

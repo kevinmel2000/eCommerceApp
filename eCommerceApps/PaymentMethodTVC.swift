@@ -36,6 +36,7 @@ class PaymentMethodTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.topItem!.title = "Back"
         self.tableView.tableFooterView = UIView()
         if ((userdefault.object(forKey: "loginStatus") as? Bool == nil) && (userdefault.object(forKey: "userid") as? String == nil)) {
             if (userdefault.object(forKey: "loginStatus") as? Bool == false) {

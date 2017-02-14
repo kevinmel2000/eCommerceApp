@@ -71,6 +71,8 @@ class ProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         Prod_Add2Cart.layer.cornerRadius = 5
         Prod_Add2Wishlist.layer.cornerRadius = 5
         Prod_Add2Cart.isEnabled = false

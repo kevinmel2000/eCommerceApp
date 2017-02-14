@@ -61,6 +61,8 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         btn_submit.layer.cornerRadius = 5
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
             if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
                 user_name.delegate = self

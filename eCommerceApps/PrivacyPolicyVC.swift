@@ -23,6 +23,8 @@ class PrivacyPolicyVC: UIViewController {
         super.viewDidLoad()
         self.title = "Privacy Policy"
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         let url = NSURL(string: "http://www.dummies.com/privacy-policy/")
         let request = NSURLRequest(url: url! as URL)
         webView.loadRequest(request as URLRequest)

@@ -50,6 +50,9 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         btnTransferRec.layer.cornerRadius = 5
         invoiceNumber.tag = 0
         invoiceNumber.delegate = self

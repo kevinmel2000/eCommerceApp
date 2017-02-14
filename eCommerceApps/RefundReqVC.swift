@@ -58,7 +58,12 @@ class RefundReqVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "Request For Refund"
+        
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
+        
         ItemsDetail.isHidden = true
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default

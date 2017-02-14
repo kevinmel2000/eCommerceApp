@@ -40,6 +40,8 @@ class WishlistVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         tableView.dataSource = self
         tableView.delegate = self
         

@@ -40,6 +40,8 @@ class ChoicesPayMethodTVC: UITableViewController {
         self.title = "Payment Method List"
         
         self.tableView.tableFooterView = UIView()
+        
+        self.navigationController!.navigationBar.topItem!.title = "Back"
     }
     
     override func viewDidAppear(_ animated: Bool) {

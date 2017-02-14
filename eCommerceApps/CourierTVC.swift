@@ -65,6 +65,9 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Courier/Shipper"
+        
+        self.navigationController!.navigationBar.topItem!.title = "Back"
+        
         tableView.dataSource = self
         tableView.delegate = self
     }
