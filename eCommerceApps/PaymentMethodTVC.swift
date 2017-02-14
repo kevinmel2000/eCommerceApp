@@ -8,11 +8,24 @@
 
 import UIKit
 import Alamofire
+import Gloss
 
 class PaymentMethodTVC: UITableViewController {
 
-    let TableData = ["Bank Transfer"]
-    //var TableData:Array<String> = Array <String>()
+    //let TableData = ["Bank Transfer"]
+    var TableData = [String:Any]()
+    
+    struct DefaultPayment: Decodable {
+        var status: String?
+        var method: String?
+        var logo: String?
+        
+        init?(json: JSON) {
+            status = "Status" <~~ json
+            method = "default_payment" <~~ json
+            logo = "logo" <~~ json
+        }
+    }
     
     let userdefault = UserDefaults.standard
     
@@ -24,17 +37,19 @@ class PaymentMethodTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
-        if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
-            if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
-                get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
+        if ((userdefault.object(forKey: "loginStatus") as? Bool == nil) && (userdefault.object(forKey: "userid") as? String == nil)) {
+            if (userdefault.object(forKey: "loginStatus") as? Bool == false) {
+                let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
+                alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                self.present(alertStatus, animated: true, completion: nil)
             }
-        } else {
-            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please log in to access this page.", preferredStyle: UIAlertControllerStyle.alert)
-            alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
-                self.navigationController?.popViewController(animated: true)
-            }))
-            self.present(alertStatus, animated: true, completion: nil)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        get_data_from_url(url: BaseURL.rootURL()+"getDefaultPayment.php")
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,8 +65,15 @@ class PaymentMethodTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1//TableData.count
+        if !TableData.isEmpty{
+            guard let value = TableData as? JSON,
+                let eventsArrayJSON = value["paymentDefault"] as? [JSON]
+                else { fatalError() }
+            let defaultpayment = [DefaultPayment].from(jsonArray: eventsArrayJSON)
+            return defaultpayment!.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -66,9 +88,18 @@ class PaymentMethodTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath as IndexPath) as! CustomCellPMTVC
         
-        cell.accessoryType = .disclosureIndicator
-        cell.paymentNameLabel.text = TableData[indexPath.row]
+        if !TableData.isEmpty{
+            guard let value = TableData as? JSON,
+                let eventsArrayJSON = value["paymentDefault"] as? [JSON]
+                else { fatalError() }
+            let defaultpayment = [DefaultPayment].from(jsonArray: eventsArrayJSON)
+            cell.paymentNameLabel.text = defaultpayment?[indexPath.row].method
+            cell.imagePay.downloadedFrom(link: (defaultpayment?[indexPath.row].logo!)!)
+        } else {
+            cell.paymentNameLabel.text = "Data is not available"
+        }
         
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
@@ -77,72 +108,15 @@ class PaymentMethodTVC: UITableViewController {
         performSegue(withIdentifier: "SegueChoicesPaymentMethod", sender: self)
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     func get_data_from_url(url:String){
-        //let queue = DispatchQueue(label: "com.luthfifr-queue", qos: .utility, attributes: [.concurrent])
         let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
             switch response.result{
             case .success(let data):
-                /*guard let value = data as? JSON,
-                    let eventsArrayJSON = value["userprof"] as? [JSON]
-                    else { fatalError() }
-                let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
-                for j in 0 ..< Int((Userprofile?.count)!) {
-                    if (Userprofile?[j].UserName! != "None") {
-                        self.user_name.text = (Userprofile?[j].UserName!)!
-                        self.user_street.text = (Userprofile?[j].UserAddr_street!)!
-                        self.user_city.text = (Userprofile?[j].UserAddr_city!)!
-                        self.user_province.text = (Userprofile?[j].UserAddr_province!)!
-                        self.user_country.text = (Userprofile?[j].UserAddr_country!)!
-                        self.user_postalCode.text = (Userprofile?[j].UserAddr_postalCode!)!
-                        self.user_mobileNumber.text = (Userprofile?[j].UserMobilePh!)!
-                    }
-                }*/
+                self.TableData = data as! JSON
+                DispatchQueue.main.async(execute: {
+                    self.tableView.reloadData()
+                })
                 break
             case .failure(let error):
                 print("Error: \(error)")

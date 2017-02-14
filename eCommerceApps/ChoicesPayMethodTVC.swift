@@ -7,10 +7,33 @@
 //
 
 import UIKit
+import Alamofire
+import Gloss
 
 class ChoicesPayMethodTVC: UITableViewController {
     
-    let methods = ["COD", "Bank Transfer"]
+    var methods = [String:Any]()
+    
+    struct paymentMethod: Decodable {
+        var name: String?
+        var logo: String?
+        
+        init?(json: JSON) {
+            name = "payment_name" <~~ json
+            logo = "payment_logo" <~~ json
+        }
+        
+    }
+    
+    struct defaultStatus: Decodable {
+        var status: String?
+        
+        init?(json: JSON) {
+            status = "Status" <~~ json
+        }
+    }
+    
+    let userdefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +43,7 @@ class ChoicesPayMethodTVC: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //update total price label, get notification from CutomTableViewCell
-        //NotificationCenter.default.addObserver(self, selector: #selector(ChoicesPayMethodTVC.BtnSet(_:)), name: NSNotification.Name(rawValue: "btnSetPressed"), object: nil)
+        get_data_from_url(url: BaseURL.rootURL()+"paymentsMethod.php")
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,8 +59,15 @@ class ChoicesPayMethodTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.methods.count
+        if !methods.isEmpty {
+            guard let value = methods as? JSON,
+                let eventsArrayJSON = value["payments"] as? [JSON]
+                else { fatalError() }
+            let paymentmethod = [paymentMethod].from(jsonArray: eventsArrayJSON)
+            return paymentmethod!.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -48,8 +77,20 @@ class ChoicesPayMethodTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChoicesMethodCell", for: indexPath) as! CustomCellCPMTVC
-
-        cell.paymentNameLabel.text = methods[indexPath.row]
+        
+        if !methods.isEmpty {
+            guard let value = methods as? JSON,
+                let eventsArrayJSON = value["payments"] as? [JSON]
+                else { fatalError() }
+            let paymentmethod = [paymentMethod].from(jsonArray: eventsArrayJSON)
+            cell.imagePay.downloadedFrom(link: (paymentmethod?[indexPath.row].logo!)!)
+            cell.paymentNameLabel.text = (paymentmethod?[indexPath.row].name!)!
+            cell.paymentNameLabel.sizeToFit()
+        } else {
+            cell.paymentNameLabel.text = "Data is not available"
+            cell.paymentNameLabel.sizeToFit()
+        }
+        
         cell.accessoryView = cell.btn_Set
         cell.btn_Set.tag = indexPath.row
         cell.accessoryView?.isUserInteractionEnabled = true
@@ -62,6 +103,28 @@ class ChoicesPayMethodTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
+    }
+    
+    func get_data_from_url(url:String){
+        //let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
+        Alamofire.request(url).validate(contentType: ["application/json"]).responseJSON{ response in
+            
+            switch response.result{
+            case .success(let data):
+                self.methods = data as! JSON
+                DispatchQueue.main.async(execute: {
+                    self.tableView.reloadData()
+                })
+                break
+            case .failure(let error):
+                
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
     }
     
     /*override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -118,10 +181,34 @@ class ChoicesPayMethodTVC: UITableViewController {
     
     func BtnSet(_ sender:UIButton) {
         let TagNumber = sender.tag
-        print("Button Set Tag: \(TagNumber)")
-        let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Button Set is pressed", preferredStyle: UIAlertControllerStyle.alert)
-        alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
-        self.present(alertStatus, animated: true, completion: nil)
+        var method = ""
+        //print("Button Set Tag: \(TagNumber)")
+        let indexPath = IndexPath(row: TagNumber, section: 0)
+        let currentCell = tableView.cellForRow(at: indexPath)! as! CustomCellCPMTVC
+        method = currentCell.paymentNameLabel.text!
+        //print("method: \(method)")
+        let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String, "method":method]
+        Alamofire.request(BaseURL.rootURL()+"setDefaultPayment.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["paymentDefault"] as? [JSON]
+                    else { fatalError() }
+                let defaultstatus = [defaultStatus].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((defaultstatus?.count)!) {
+                    let alertStatus = UIAlertController (title: "eCommerce App Message", message: "\((defaultstatus?[j].status!)!) to set default payment method", preferredStyle: UIAlertControllerStyle.alert)
+                    alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
+                    self.present(alertStatus, animated: true, completion: nil)
+                }
+                break
+            case .failure(let error):
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
     }
 
 }
