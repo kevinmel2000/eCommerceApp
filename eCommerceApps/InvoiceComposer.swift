@@ -86,6 +86,8 @@ class InvoiceComposer: NSObject {
                 // Replace the description and price placeholders with the actual values.
                 itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#ITEM_DESC#", with: items[i]["item"]!)
                 
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#QTY#", with: items[i]["qty"]!)
+                
                 // Format each item's price as a currency value.
                 //let formattedPrice = AppDelegate.getAppDelegate().getStringValueFormattedAsCurrency(value: items[i]["price"]!)
                 let formattedPrice = items[i]["price"]!

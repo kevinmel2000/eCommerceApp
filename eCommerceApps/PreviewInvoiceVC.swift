@@ -18,6 +18,7 @@ class PreviewInvoiceVC: UIViewController {
     
     //var invoiceInfo = [String: AnyObject]()
     var items = [[String:String]]()
+    var subs = [Int]()
     var invoiceComposer: InvoiceComposer!
     var HTMLContent: String!
     var invoiceNumber: String!
@@ -54,6 +55,34 @@ class PreviewInvoiceVC: UIViewController {
         }
     }
     
+    struct Products: Decodable {
+        let status: String?
+        let prod_id: String?
+        let prod_qty: String?
+        let prod_price: String?
+        let prod_name: String?
+        
+        init?(json: JSON) {
+            self.status = "Status" <~~ json
+            self.prod_id = "inv_prodID" <~~ json
+            self.prod_qty = "inv_prodQty" <~~ json
+            self.prod_price = "prod_price" <~~ json
+            self.prod_name = "prod_name" <~~ json
+        }
+    }
+    
+    struct ProductResult: Decodable {
+        let status: String?
+        let total: String?
+        let products: [Products]?
+        
+        init?(json: JSON) {
+            self.status = "Status" <~~ json
+            self.total = "Total" <~~ json
+            self.products = "Products" <~~ json
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,19 +92,18 @@ class PreviewInvoiceVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Invoice Number: \(invoiceNumber!)")
-        print("Invoice Date: \(invoiceDate!)")
-        items.append(["item": "product 1", "price": "10000"])
-        for item in items{
-            print("Isi items: \(item)")
-        }
-        totalAmount = "0.0"
+        //print("Invoice Number: \(invoiceNumber!)")
+        //print("Invoice Date: \(invoiceDate!)")
+        //items.append(["item": "product 1", "price": "10000"])
+        
         get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
+        get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+        
+        //totalAmount = "0.0"
     }
     
     
@@ -122,7 +150,7 @@ class PreviewInvoiceVC: UIViewController {
     
     
     func showOptionsAlert() {
-        let alertController = UIAlertController(title: "Yeah!", message: "Your invoice has been successfully printed to a PDF file.\n\nWhat do you want to do now?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Success", message: "Your invoice has been successfully printed to a PDF file.\n\nWhat do you want to do now?", preferredStyle: UIAlertControllerStyle.alert)
         
         let actionPreview = UIAlertAction(title: "Preview it", style: UIAlertActionStyle.default) { (action) in
             if let filename = self.invoiceComposer.pdfFilename, let url = URL(string: filename) {
@@ -174,7 +202,6 @@ class PreviewInvoiceVC: UIViewController {
                         
                         self.userInfo = "\((Userprofile?[j].UserName!)!), \((Userprofile?[j].UserAddr_street!)!), \((Userprofile?[j].UserAddr_city!)!), \((Userprofile?[j].UserAddr_province!)!), \((Userprofile?[j].UserAddr_country!)!). \((Userprofile?[j].UserAddr_postalCode!)!)"
                         print("User Info = \(self.userInfo)")
-                        self.createInvoiceAsHTML()
                     }
                 }
                 break
@@ -189,4 +216,42 @@ class PreviewInvoiceVC: UIViewController {
         }
     }
     
+    func get_product_data(url:String){
+        items.removeAll(keepingCapacity: false)
+        let parameterURL = ["inv_number": self.invoiceNumber!]
+        Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["Invoice"] as? [JSON]
+                    else { fatalError() }
+                let productresult = [ProductResult].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((productresult?.count)!) {
+                    if ((productresult?[j].status)! == "Success") {
+                        for k in 0 ..< Int((productresult?[j].products?.count)!) {
+                            self.items.append(["item": (productresult?[j].products?[k].prod_name)!, "price": (productresult?[j].products?[k].prod_price)!, "qty": (productresult?[j].products?[k].prod_qty)!])
+                        }
+                        /*for item in self.items {
+                            print("Isi items: \(item)")
+                        }*/
+                        self.totalAmount = (productresult?[j].total)!
+                        self.createInvoiceAsHTML()
+                    } else {
+                        let alert1 = UIAlertController (title: "Error", message: "Sorry, please try again.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alert1, animated: true, completion: nil)
+                    }
+                }
+                break
+            case .failure(let error):
+                
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
+    }
 }
