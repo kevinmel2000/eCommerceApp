@@ -20,7 +20,7 @@ class InvoiceComposer: NSObject {
     
     let dueDate = ""
     
-    let paymentMethod = "Bank Transfer"
+    //let paymentMethod = "Bank Transfer"
     
     let logoImageURL = "https://www.imperio.co.id/project/ecommerceApp/Logo_DSC.png"
     
@@ -34,7 +34,7 @@ class InvoiceComposer: NSObject {
     }
     
     
-    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String) -> String! {
+    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String) -> String! {
         // Store the invoice number for future use.
         self.invoiceNumber = invoiceNumber
         

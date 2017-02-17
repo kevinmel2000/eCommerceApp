@@ -25,6 +25,7 @@ class PreviewInvoiceVC: UIViewController {
     var invoiceDate: String!
     var totalAmount: String!
     var userInfo: String!
+    var paymentMethod: String!
     
     let userdefault = UserDefaults.standard
     
@@ -52,6 +53,18 @@ class PreviewInvoiceVC: UIViewController {
             self.UserAddr_postalCode = "postalcode" <~~ json
             self.UserMobilePh = "mobilephone" <~~ json
             self.UserEmail = "email" <~~ json
+        }
+    }
+    
+    struct DefaultPayment: Decodable {
+        var status: String?
+        var method: String?
+        var logo: String?
+        
+        init?(json: JSON) {
+            status = "Status" <~~ json
+            method = "default_payment" <~~ json
+            logo = "logo" <~~ json
         }
     }
     
@@ -101,6 +114,7 @@ class PreviewInvoiceVC: UIViewController {
         //items.append(["item": "product 1", "price": "10000"])
         
         get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
+        get_defaultPayment_data(url: BaseURL.rootURL()+"getDefaultPayment.php")
         get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
         
         //totalAmount = "0.0"
@@ -140,7 +154,9 @@ class PreviewInvoiceVC: UIViewController {
                                                            invoiceDate: invoiceDate!,
                                                            recipientInfo: userInfo,
                                                            items: items,
-                                                           totalAmount: totalAmount) {
+                                                           totalAmount: totalAmount,
+                                                           paymentMethod: paymentMethod
+                                                           ) {
             
             webPreview.loadHTMLString(invoiceHTML, baseURL: NSURL(string: invoiceComposer.pathToInvoiceHTMLTemplate!)! as URL)
             HTMLContent = invoiceHTML
@@ -207,6 +223,29 @@ class PreviewInvoiceVC: UIViewController {
                 break
             case .failure(let error):
                 
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
+    }
+    
+    func get_defaultPayment_data(url:String){
+        let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
+        Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["paymentDefault"] as? [JSON]
+                    else { fatalError() }
+                let defaultpayment = [DefaultPayment].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((defaultpayment?.count)!) {
+                    self.paymentMethod = (defaultpayment?[j].method)!
+                }
+                break
+            case .failure(let error):
                 print("Error: \(error)")
                 let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                 alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
