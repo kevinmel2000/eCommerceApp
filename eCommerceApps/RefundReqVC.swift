@@ -56,13 +56,16 @@ class RefundReqVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     let itemsPicker = UIPickerView()
     var itemsData = ["All items", "Certain items"]
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Request For Refund"
-        
         self.navigationController!.navigationBar.topItem!.title = "Back"
-        
+        self.title = "Request For Refund"
         
         ItemsDetail.isHidden = true
         let toolBar = UIToolbar()
@@ -108,6 +111,7 @@ class RefundReqVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         if invoiceData.isEmpty == true {
             get_data_from_url(url: BaseURL.rootURL()+"getInvoices_forRefund.php")
         }

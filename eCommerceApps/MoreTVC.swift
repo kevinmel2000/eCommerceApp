@@ -17,7 +17,7 @@ class MoreTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "More Options"
+        
         self.tableView.tableFooterView = UIView()
         let LoginStatus = userdefault.object(forKey: "loginStatus") as! Bool
         //check whether there is a user being log in, if yes, change "Log In" in array items into "Log Out"
@@ -26,6 +26,11 @@ class MoreTVC: UITableViewController {
         } else {
             items[items.count-1] = ["Log In"]
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "More Options"
     }
 
     override func didReceiveMemoryWarning() {
