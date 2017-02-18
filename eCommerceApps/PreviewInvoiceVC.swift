@@ -26,6 +26,8 @@ class PreviewInvoiceVC: UIViewController {
     var totalAmount: String!
     var userInfo: String!
     var paymentMethod: String!
+    var senderInfo: String!
+    var logoImageURL: String!
     
     let userdefault = UserDefaults.standard
     
@@ -96,6 +98,29 @@ class PreviewInvoiceVC: UIViewController {
         }
     }
     
+    struct ShopInfo: Decodable{
+        let ShopName: String?
+        let logo: String?
+        let ShopAddr_street: String?
+        let ShopAddr_city: String?
+        let ShopAddr_province: String?
+        let ShopAddr_country: String?
+        let ShopAddr_postalCode: String?
+        let ShopCurrency: String?
+        let ShopAbbr: String?
+        
+        init?(json: JSON){
+            self.ShopName = "name" <~~ json
+            self.logo = "logo" <~~ json
+            self.ShopAddr_street = "street" <~~ json
+            self.ShopAddr_city = "city" <~~ json
+            self.ShopAddr_province = "province" <~~ json
+            self.ShopAddr_country = "country" <~~ json
+            self.ShopAddr_postalCode = "postalcode" <~~ json
+            self.ShopCurrency = "currency" <~~ json
+            self.ShopAbbr = "abbrevation" <~~ json
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,8 +139,6 @@ class PreviewInvoiceVC: UIViewController {
         //items.append(["item": "product 1", "price": "10000"])
         
         get_data_from_url(url: BaseURL.rootURL()+"userprofile.php")
-        get_defaultPayment_data(url: BaseURL.rootURL()+"getDefaultPayment.php")
-        get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
         
         //totalAmount = "0.0"
     }
@@ -155,7 +178,9 @@ class PreviewInvoiceVC: UIViewController {
                                                            recipientInfo: userInfo,
                                                            items: items,
                                                            totalAmount: totalAmount,
-                                                           paymentMethod: paymentMethod
+                                                           paymentMethod: paymentMethod,
+                                                           senderInfo: senderInfo,
+                                                           logoImageURL: logoImageURL
                                                            ) {
             
             webPreview.loadHTMLString(invoiceHTML, baseURL: NSURL(string: invoiceComposer.pathToInvoiceHTMLTemplate!)! as URL)
@@ -215,11 +240,10 @@ class PreviewInvoiceVC: UIViewController {
                 let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((Userprofile?.count)!) {
                     if (Userprofile?[j].UserName! != "None") {
-                        
                         self.userInfo = "\((Userprofile?[j].UserName!)!), \((Userprofile?[j].UserAddr_street!)!), \((Userprofile?[j].UserAddr_city!)!), \((Userprofile?[j].UserAddr_province!)!), \((Userprofile?[j].UserAddr_country!)!). \((Userprofile?[j].UserAddr_postalCode!)!)"
-                        print("User Info = \(self.userInfo)")
                     }
                 }
+                self.get_defaultPayment_data(url: BaseURL.rootURL()+"getDefaultPayment.php")
                 break
             case .failure(let error):
                 
@@ -244,12 +268,34 @@ class PreviewInvoiceVC: UIViewController {
                 for j in 0 ..< Int((defaultpayment?.count)!) {
                     self.paymentMethod = (defaultpayment?[j].method)!
                 }
+                self.get_shopinfo(url: BaseURL.rootURL()+"shopinfo.php")
                 break
             case .failure(let error):
                 print("Error: \(error)")
                 let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                 alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
+    }
+    
+    func get_shopinfo(url: String){
+        Alamofire.request(url).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["shopinfo"] as? [JSON]
+                    else { fatalError() }
+                let shopinfo = [ShopInfo].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((shopinfo?.count)!){
+                    self.senderInfo = "\((shopinfo?[j].ShopName)!)<br>\((shopinfo?[j].ShopAddr_street)!)<br>\((shopinfo?[j].ShopAddr_city)!), \((shopinfo?[j].ShopAddr_province)!)<br>\((shopinfo?[j].ShopAddr_country)!)<br>\((shopinfo?[j].ShopAddr_postalCode)!)"
+                    self.logoImageURL = (shopinfo?[j].logo)!
+                }
+                self.get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+                break
+            case .failure(let error):
+                print("Error: \(error)")
                 break
             }
         }

@@ -16,13 +16,13 @@ class InvoiceComposer: NSObject {
     
     let pathToLastItemHTMLTemplate = Bundle.main.path(forResource: "last_item", ofType: "html")
     
-    let senderInfo = "DSC Co.<br>Jl. Terusan Buah Batu<br>40000 - Bandung<br>Indonesia"
+    //let senderInfo = "DSC Co.<br>Jl. Terusan Buah Batu<br>40000 - Bandung<br>Indonesia"
     
     let dueDate = ""
     
     //let paymentMethod = "Bank Transfer"
     
-    let logoImageURL = "https://www.imperio.co.id/project/ecommerceApp/Logo_DSC.png"
+    //let logoImageURL = "https://www.imperio.co.id/project/ecommerceApp/Logo_DSC.png"
     
     var invoiceNumber: String!
     
@@ -34,7 +34,7 @@ class InvoiceComposer: NSObject {
     }
     
     
-    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String) -> String! {
+    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String, senderInfo: String, logoImageURL: String) -> String! {
         // Store the invoice number for future use.
         self.invoiceNumber = invoiceNumber
         
