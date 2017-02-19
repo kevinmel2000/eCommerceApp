@@ -16,6 +16,8 @@ class InvoiceComposer: NSObject {
     
     let pathToLastItemHTMLTemplate = Bundle.main.path(forResource: "last_item", ofType: "html")
     
+    let pathToBankInfoTemplate = Bundle.main.path(forResource: "bank_Info", ofType: "html")
+    
     //let senderInfo = "DSC Co.<br>Jl. Terusan Buah Batu<br>40000 - Bandung<br>Indonesia"
     
     let dueDate = ""
@@ -34,7 +36,7 @@ class InvoiceComposer: NSObject {
     }
     
     
-    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String, senderInfo: String, logoImageURL: String, paymentStatus: String) -> String! {
+    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String, senderInfo: String, logoImageURL: String, paymentStatus: String, banks: [[String:String]]) -> String! {
         // Store the invoice number for future use.
         self.invoiceNumber = invoiceNumber
         
@@ -102,6 +104,21 @@ class InvoiceComposer: NSObject {
             
             // Set the items.
             HTMLContent = HTMLContent.replacingOccurrences(of: "#ITEMS#", with: allItems)
+            
+            var allBanks = ""
+            for j in 0 ..< banks.count{
+                var bankHTMLContent: String!
+                
+                bankHTMLContent = try String(contentsOfFile: pathToBankInfoTemplate!)
+                bankHTMLContent = bankHTMLContent.replacingOccurrences(of: "#BANK_NAME#", with: banks[j]["name"]!)
+                bankHTMLContent = bankHTMLContent.replacingOccurrences(of: "#BRANCH#", with: banks[j]["branch"]!)
+                bankHTMLContent = bankHTMLContent.replacingOccurrences(of: "#ACC_NUMBER#", with: banks[j]["accNumber"]!)
+                bankHTMLContent = bankHTMLContent.replacingOccurrences(of: "#ACC_HOLDER_NAME#", with: banks[j]["accHolder"]!)
+                
+                allBanks += bankHTMLContent
+            }
+            
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#BankInfo#", with: allBanks)
             
             // The HTML code is ready.
             return HTMLContent

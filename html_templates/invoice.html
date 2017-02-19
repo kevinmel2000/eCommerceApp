@@ -137,11 +137,23 @@
                         </td>
                         <td> Total: #TOTAL_AMOUNT# </td>
                     </tr>
-                    <table>
+                    <table cellpadding="0" cellspacing="0">
                         <tr>
                             <td>Payment Status:</td>
-                            <td> #PaymentStatus# </td>
+                            <td colspan="2"> #PaymentStatus# </td>
                         </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="4">DSC Co. Bank Accounts</td>
+                        </tr>
+                        <tr class="heading" align="left">
+                            <td>Bank Name</td>
+                            <td>Branch Name</td>
+                            <td>Account Number</td>
+                            <td>Account Holder Name</td>
+                        </tr>
+                        #BankInfo#
                     </table>
                 </tbody>
             </table>

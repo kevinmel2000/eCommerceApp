@@ -29,6 +29,7 @@ class PreviewInvoiceVC: UIViewController {
     var senderInfo: String!
     var logoImageURL: String!
     var PaymentStatus: String!
+    var bankInfo = [[String:String]]()
     
     let userdefault = UserDefaults.standard
     
@@ -133,6 +134,30 @@ class PreviewInvoiceVC: UIViewController {
         }
     }
     
+    struct InfoBank: Decodable {
+        var status: String?
+        var banks: [Banks]?
+        
+        init?(json: JSON) {
+            self.status = "Status" <~~ json
+            self.banks = "banks" <~~ json
+        }
+    }
+    
+    struct Banks: Decodable {
+        var name: String?
+        var branch: String?
+        var accnumber: String?
+        var accHolder: String?
+        
+        init?(json: JSON) {
+            self.name = "name" <~~ json
+            self.branch = "branch" <~~ json
+            self.accnumber = "accNumber" <~~ json
+            self.accHolder = "accHolderName" <~~ json
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.topItem!.title = "Back"
@@ -192,7 +217,8 @@ class PreviewInvoiceVC: UIViewController {
                                                            paymentMethod: paymentMethod,
                                                            senderInfo: senderInfo,
                                                            logoImageURL: logoImageURL,
-                                                           paymentStatus: PaymentStatus
+                                                           paymentStatus: PaymentStatus,
+                                                           banks: bankInfo
                                                            ) {
             
             webPreview.loadHTMLString(invoiceHTML, baseURL: NSURL(string: invoiceComposer.pathToInvoiceHTMLTemplate!)! as URL)
@@ -325,9 +351,41 @@ class PreviewInvoiceVC: UIViewController {
                 for j in 0 ..< Int((Paystatus?.count)!) {
                     if ((Paystatus?[j].status)! == "Success") {
                         self.PaymentStatus = (Paystatus?[j].paystatus)!
-                        self.get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+                        self.getBankInfo(url: BaseURL.rootURL()+"getBankInfo.php")
                     } else {
                         let alert1 = UIAlertController (title: "Error", message: (Paystatus?[j].paystatus)!, preferredStyle: UIAlertControllerStyle.alert)
+                        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alert1, animated: true, completion: nil)
+                    }
+                }
+                break
+            case .failure(let error):
+                
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
+                break
+            }
+        }
+    }
+    
+    func getBankInfo(url: String){
+        Alamofire.request(url).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["BankInfo"] as? [JSON]
+                    else { fatalError() }
+                let infobank = [InfoBank].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((infobank?.count)!) {
+                    if ((infobank?[j].status)! == "Success") {
+                        for k in 0 ..< Int((infobank?[j].banks?.count)!) {
+                            self.bankInfo.append(["name": (infobank?[j].banks?[k].name)!, "branch": (infobank?[j].banks?[k].branch)!, "accNumber": (infobank?[j].banks?[k].accnumber)!, "accHolder": (infobank?[j].banks?[k].accHolder)!])
+                            self.get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+                        }
+                    } else {
+                        let alert1 = UIAlertController (title: "Error", message: "Sorry, can not retrieve DSC Co. bank accounts info. Please try again.", preferredStyle: UIAlertControllerStyle.alert)
                         alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
                         self.present(alert1, animated: true, completion: nil)
                     }

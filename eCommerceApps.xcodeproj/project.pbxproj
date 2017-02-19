@@ -38,6 +38,7 @@
 		CF9E5E981E51FDDC00FD1B82 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E5E971E51FDDC00FD1B82 /* BaseURL.swift */; };
 		CFB4F2761E422B4000EC58E0 /* HomeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */; };
 		CFB4F2781E4265E500EC58E0 /* ProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4F2771E4265E500EC58E0 /* ProductVC.swift */; };
+		CFB96C961E5A25F600F7CE89 /* bank_Info.html in Resources */ = {isa = PBXBuildFile; fileRef = CFB96C951E5A25F600F7CE89 /* bank_Info.html */; };
 		CFC3BB851E43151E0027ECCE /* WishlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB841E43151E0027ECCE /* WishlistVC.swift */; };
 		CFC3BB871E43544A0027ECCE /* CourierTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB861E43544A0027ECCE /* CourierTVC.swift */; };
 		CFC3BB891E4354910027ECCE /* CustomCellCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */; };
@@ -113,6 +114,7 @@
 		CF9E5E971E51FDDC00FD1B82 /* BaseURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
 		CFB4F2751E422B4000EC58E0 /* HomeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTVC.swift; sourceTree = "<group>"; };
 		CFB4F2771E4265E500EC58E0 /* ProductVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVC.swift; sourceTree = "<group>"; };
+		CFB96C951E5A25F600F7CE89 /* bank_Info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = bank_Info.html; path = html_templates/bank_Info.html; sourceTree = "<group>"; };
 		CFC3BB841E43151E0027ECCE /* WishlistVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistVC.swift; sourceTree = "<group>"; };
 		CFC3BB861E43544A0027ECCE /* CourierTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourierTVC.swift; sourceTree = "<group>"; };
 		CFC3BB881E4354910027ECCE /* CustomCellCTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCTVC.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 		CFC3BB911E49A8A00027ECCE /* HTML Templates */ = {
 			isa = PBXGroup;
 			children = (
+				CFB96C951E5A25F600F7CE89 /* bank_Info.html */,
 				CFC3BB921E49A8C50027ECCE /* invoice.html */,
 				CFC3BB931E49A8C50027ECCE /* last_item.html */,
 				CFC3BB941E49A8C50027ECCE /* single_item.html */,
@@ -396,6 +399,7 @@
 				CF514A081E39EBAE0072889C /* Assets.xcassets in Resources */,
 				CF514A061E39EBAD0072889C /* Main.storyboard in Resources */,
 				CFC3BB971E49A8C50027ECCE /* single_item.html in Resources */,
+				CFB96C961E5A25F600F7CE89 /* bank_Info.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
