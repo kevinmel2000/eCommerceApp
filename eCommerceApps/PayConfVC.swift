@@ -31,27 +31,55 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let message: String?
         
         init?(json: JSON) {
-            self.status = "status" <~~ json
+            self.status = "Status" <~~ json
             self.message = "message" <~~ json
+        }
+    }
+    
+    struct Invoices: Decodable {
+        let inv_number: String?
+        
+        init?(json: JSON) {
+            self.inv_number = "inv_number" <~~ json
+        }
+    }
+    
+    struct InvoiceResult: Decodable {
+        let status: String?
+        let invoice: [Invoices]?
+        
+        init?(json: JSON) {
+            self.status = "Status" <~~ json
+            self.invoice = "invoices" <~~ json
+        }
+    }
+    
+    struct BankInfo: Decodable{
+        let bank: String?
+        
+        init?(json: JSON) {
+            self.bank = "bank" <~~ json
         }
     }
     
     let userdefault = UserDefaults.standard
     
     let MerchantBankPicker = UIPickerView()
-    var MerchantBanks = ["BCA", "MANDIRI", "BNI","BRI"]
+    var MerchantBanks = [String]()
     let invoicePicker = UIPickerView()
-    var invoiceData = ["INV/00/0001", "INV/00/0002", "INV/00/0003", "INV/00/0004"]
+    var invoiceData = [String]()
+    var dataGambar: Data!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Payment Confirmation"
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController!.navigationBar.topItem!.title = "Back"
+        self.title = "Payment Confirmation"
         
         btnTransferRec.layer.cornerRadius = 5
         invoiceNumber.tag = 0
@@ -92,11 +120,76 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             }))
             self.present(alertStatus, animated: true, completion: nil)
         }
+        
+        let tapAnywhere: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(PayConfVC.dismissKeyboard))
+        view.addGestureRecognizer(tapAnywhere)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if invoiceData.isEmpty == true {
+            get_data_from_url(url: BaseURL.rootURL()+"getInvoices_forConfirmation.php")
+        }
+        get_bankData(url: BaseURL.rootURL()+"shop_bankInfo.php")
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func get_data_from_url(url:String){
+        if invoiceData.isEmpty == false {
+            self.invoiceData.removeAll(keepingCapacity: false)
+        }
+        
+        let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
+        Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["Invoice"] as? [JSON]
+                    else { fatalError() }
+                let invoiceresult = [InvoiceResult].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((invoiceresult?.count)!){
+                    for k in 0 ..< Int((invoiceresult?[j].invoice?.count)!) {
+                        self.invoiceData.append((invoiceresult?[j].invoice?[k].inv_number!)!)
+                    }
+                }
+                DispatchQueue.main.async(execute: {
+                    self.viewDidLoad()
+                })
+                break
+            case .failure(let error):
+                print("Error: \(error)")
+                break
+            }
+        }
+    }
+    
+    func get_bankData(url:String){
+        if MerchantBanks.isEmpty == false {
+            self.MerchantBanks.removeAll(keepingCapacity: false)
+        }
+        
+        Alamofire.request(url).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["bankInfo"] as? [JSON]
+                    else { fatalError() }
+                let bankinfo = [BankInfo].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((bankinfo?.count)!){
+                    self.MerchantBanks.append((bankinfo?[j].bank)!)
+                }
+                DispatchQueue.main.async(execute: {
+                    self.viewDidLoad()
+                })
+                break
+            case .failure(let error):
+                print("Error: \(error)")
+                break
+            }
+        }
     }
     
     func donePicker()
@@ -125,23 +218,31 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func btnSubmit(_ sender: UIButton) {
-        if(((invoiceNumber.text?.isEmpty)!) || ((transferTo.text?.isEmpty)!) || ((senderBank.text?.isEmpty)!) || ((senderAccNumber.text?.isEmpty)!) || ((transferAmount.text?.isEmpty)!) || (imageTransferRec.image != nil)) {
+        if(((invoiceNumber.text?.isEmpty)!) || ((transferTo.text?.isEmpty)!) || ((senderBank.text?.isEmpty)!) || ((senderAccNumber.text?.isEmpty)!) || ((transferAmount.text?.isEmpty)!) || (imageTransferRec.image == nil)) {
             let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please fill all fields.", preferredStyle: UIAlertControllerStyle.alert)
             alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
             self.present(alertStatus, animated: true, completion: nil)
         } else {
-            let parameterURL = ["invoice":invoiceNumber.text!,"transferto":transferTo.text!, "senderbank":senderBank.text!,"senderaccnum":senderAccNumber.text!,"transferamount":transferAmount.text!]
-            Alamofire.request(BaseURL.rootURL()+"", parameters:parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            let parameterURL = ["userId":self.userdefault.object(forKey: "userid") as! String, "invoice":self.invoiceNumber.text!, "transferto":self.transferTo.text!,  "senderbank":self.senderBank.text!, "senderaccnum":self.senderAccNumber.text!, "transferamount":self.transferAmount.text!]
+            print(parameterURL)
+            Alamofire.request(BaseURL.rootURL()+"paymentConfirmation.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
                 switch response.result{
                 case .success(let data):
                     guard let value = data as? JSON,
-                        let eventsArrayJSON = value["wishlist"] as? [JSON]
+                        let eventsArrayJSON = value["PaymentConfirmation"] as? [JSON]
                         else { fatalError() }
                     let submissionresult = [SubmissionResult].from(jsonArray: eventsArrayJSON)
                     for j in 0 ..< Int((submissionresult?.count)!){
                         let alertStatus = UIAlertController (title: "Payment Confirmation \((submissionresult?[j].status!)!)", message: (submissionresult?[j].message!)!, preferredStyle: UIAlertControllerStyle.alert)
-                        alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
+                        alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: {(action) in
+                            if ((submissionresult?[j].status!)! == "Success") {
+                                //print(self.dataGambar)
+                                self.myImageUploadRequest(imageData: self.dataGambar)
+                            }
+                            
+                        }))
                         self.present(alertStatus, animated: true, completion: nil)
+                        
                     }
                     break
                 case .failure(let error):
@@ -150,6 +251,64 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 }
             }
         }
+    }
+    
+    func myImageUploadRequest(imageData: Data) {
+        let myUrl = NSURL(string: BaseURL.rootURL()+"uploadReceipt.php")
+        let request = NSMutableURLRequest(url:myUrl! as URL)
+        request.httpMethod = "POST"
+        let param = ["userId":self.userdefault.object(forKey: "userid") as! String, "invoice": self.invoiceNumber.text!]
+        let boundary = generateBoundaryString()
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData as NSData, boundary: boundary) as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            // print out response object
+            print("******* response = \(response!)")
+            // Print out reponse body
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("****** response data = \(responseString!)")
+            DispatchQueue.main.async(execute: {
+                self.viewWillAppear(true)
+            })
+            //self.viewDidLoad()
+        }
+        
+        task.resume()
+    }
+    
+    func generateBoundaryString() -> String {
+        return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
+        let body = NSMutableData();
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString(string: "--\(boundary)\r\n")
+                body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString(string: "\(value)\r\n")
+            }
+        }
+        
+        let filename = "\(invoiceNumber.text!.replacingOccurrences(of: "/", with: "_")).jpg"//"user-profile.jpg"
+        let mimetype = "image/jpg"
+        
+        body.appendString(string: "--\(boundary)\r\n")
+        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+        body.append(imageDataKey as Data)
+        body.appendString(string: "\r\n")
+        body.appendString(string: "--\(boundary)--\r\n")
+        
+        return body
     }
     
     /*
@@ -162,17 +321,22 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
      }
      */
     
-    func imagePickerController(_ picker:UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker:UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else { //UIImagePickerControllerOriginalImage
+            print("There is an errorr to get image info.")
             return
         }
+        print("Info debug desc: \(info.debugDescription)")
         let compressionQuality: CGFloat = 0.5
-        guard UIImageJPEGRepresentation(image, compressionQuality) != nil else {
+        guard let imageData = UIImageJPEGRepresentation(image, compressionQuality) else {
             print("Unable to get JPEG representation for image \(image)")
             return
         }
+        
+        self.dataGambar = imageData
         self.dismiss(animated: true, completion: nil)
-        self.imageTransferRec.image = image //UIImageView(image: image)
+        //myImageUploadRequest(imageData: imageData)
+        self.imageTransferRec.image = image
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
@@ -237,4 +401,11 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         view.endEditing(true)
     }
 
+}
+
+extension NSMutableData {
+    func appendString(string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+    }
 }
