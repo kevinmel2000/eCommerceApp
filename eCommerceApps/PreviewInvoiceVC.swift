@@ -28,6 +28,7 @@ class PreviewInvoiceVC: UIViewController {
     var paymentMethod: String!
     var senderInfo: String!
     var logoImageURL: String!
+    var PaymentStatus: String!
     
     let userdefault = UserDefaults.standard
     
@@ -122,6 +123,16 @@ class PreviewInvoiceVC: UIViewController {
         }
     }
     
+    struct PayStatus: Decodable {
+        var status: String?
+        var paystatus: String?
+        
+        init?(json: JSON) {
+            self.status = "Status" <~~ json
+            self.paystatus = "PaymentStatus" <~~ json
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.topItem!.title = "Back"
@@ -180,7 +191,8 @@ class PreviewInvoiceVC: UIViewController {
                                                            totalAmount: totalAmount,
                                                            paymentMethod: paymentMethod,
                                                            senderInfo: senderInfo,
-                                                           logoImageURL: logoImageURL
+                                                           logoImageURL: logoImageURL,
+                                                           paymentStatus: PaymentStatus
                                                            ) {
             
             webPreview.loadHTMLString(invoiceHTML, baseURL: NSURL(string: invoiceComposer.pathToInvoiceHTMLTemplate!)! as URL)
@@ -292,10 +304,41 @@ class PreviewInvoiceVC: UIViewController {
                     self.senderInfo = "\((shopinfo?[j].ShopName)!)<br>\((shopinfo?[j].ShopAddr_street)!)<br>\((shopinfo?[j].ShopAddr_city)!), \((shopinfo?[j].ShopAddr_province)!)<br>\((shopinfo?[j].ShopAddr_country)!)<br>\((shopinfo?[j].ShopAddr_postalCode)!)"
                     self.logoImageURL = (shopinfo?[j].logo)!
                 }
-                self.get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+                self.getPaymentStatus(url: BaseURL.rootURL()+"getPaymentStatus.php")
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                break
+            }
+        }
+    }
+    
+    func getPaymentStatus(url: String){
+        let parameterURL = ["invoice":self.invoiceNumber!]
+        Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+            switch response.result{
+            case .success(let data):
+                guard let value = data as? JSON,
+                    let eventsArrayJSON = value["PaymentStatus"] as? [JSON]
+                    else { fatalError() }
+                let Paystatus = [PayStatus].from(jsonArray: eventsArrayJSON)
+                for j in 0 ..< Int((Paystatus?.count)!) {
+                    if ((Paystatus?[j].status)! == "Success") {
+                        self.PaymentStatus = (Paystatus?[j].paystatus)!
+                        self.get_product_data(url: BaseURL.rootURL()+"getInvoiceData_forPreview.php")
+                    } else {
+                        let alert1 = UIAlertController (title: "Error", message: (Paystatus?[j].paystatus)!, preferredStyle: UIAlertControllerStyle.alert)
+                        alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alert1, animated: true, completion: nil)
+                    }
+                }
+                break
+            case .failure(let error):
+                
+                print("Error: \(error)")
+                let alert1 = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alert1, animated: true, completion: nil)
                 break
             }
         }
@@ -323,7 +366,7 @@ class PreviewInvoiceVC: UIViewController {
                         self.totalAmount = (productresult?[j].total)!
                         self.createInvoiceAsHTML()
                     } else {
-                        let alert1 = UIAlertController (title: "Error", message: "Sorry, please try again.", preferredStyle: UIAlertControllerStyle.alert)
+                        let alert1 = UIAlertController (title: "Error", message: "Sorry, can not retrieve product data. Please try again.", preferredStyle: UIAlertControllerStyle.alert)
                         alert1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
                         self.present(alert1, animated: true, completion: nil)
                     }

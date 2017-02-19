@@ -34,7 +34,7 @@ class InvoiceComposer: NSObject {
     }
     
     
-    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String, senderInfo: String, logoImageURL: String) -> String! {
+    func renderInvoice(invoiceNumber: String, invoiceDate: String, recipientInfo: String, items: [[String: String]], totalAmount: String, paymentMethod: String, senderInfo: String, logoImageURL: String, paymentStatus: String) -> String! {
         // Store the invoice number for future use.
         self.invoiceNumber = invoiceNumber
         
@@ -66,6 +66,8 @@ class InvoiceComposer: NSObject {
             
             // Total amount.
             HTMLContent = HTMLContent.replacingOccurrences(of: "#TOTAL_AMOUNT#", with: totalAmount)
+            
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#PaymentStatus#", with: paymentStatus)
             
             // The invoice items will be added by using a loop.
             var allItems = ""
