@@ -61,7 +61,9 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         btn_submit.layer.cornerRadius = 5
         
-        self.navigationController!.navigationBar.topItem!.title = "Back"
+        if VCOrigin != "SignUpVC" {
+            self.navigationController!.navigationBar.topItem!.title = "Back"
+        }
         
         if ((userdefault.object(forKey: "loginStatus") as? Bool != nil) && (userdefault.object(forKey: "userid") as? String != nil)) {
             if (userdefault.object(forKey: "loginStatus") as? Bool != false) {
@@ -98,8 +100,8 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            let parameterURL = ["name":user_name.text!, "street":user_street.text!, "city":user_city.text!, "province":user_province.text!, "country":user_country.text!, "postalCode":user_postalCode.text!, "mobileNumber":user_mobileNumber.text!]
-            Alamofire.request("https://imperio.co.id/project/ecommerceApp/updateUserProfile.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
+            let parameterURL = ["name":user_name.text!, "street":user_street.text!, "city":user_city.text!, "province":user_province.text!, "country":user_country.text!, "postalCode":user_postalCode.text!, "mobileNumber":user_mobileNumber.text!, "userid":self.userdefault.object(forKey: "userid") as! String]
+            Alamofire.request(BaseURL.rootURL()+"updateUserProfile.php", parameters: parameterURL).validate(contentType: ["text/html"]).responseString{ response in
                 /*let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
                 alert.view.tintColor = UIColor.black
                 let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
@@ -117,15 +119,20 @@ class UserProfileVC: UIViewController, UITextFieldDelegate {
                         let alertStatus = UIAlertController (title: "eCommerce App Message", message: data, preferredStyle: UIAlertControllerStyle.alert)
                         alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
                             switch  self.VCOrigin {
-                            case "SegueToUpdateProfFromUserProf":
+                            case "MoreTVC":
                                 self.navigationController?.popViewController(animated: true)
-                            case "SegueToUpdateProfFromSignUp":
+                            case "SignUpVC":
                                 self.performSegue(withIdentifier: "SegueFromUpdateProfToMoreView", sender: self)
                             default:
+                                print("response update user profile: \(data)")
                                 break
                             }
                         }))
                         self.present(alertStatus, animated: true, completion: nil)
+                    } else {
+                        let alertStatus1 = UIAlertController (title: "Error", message: data, preferredStyle: UIAlertControllerStyle.alert)
+                        alertStatus1.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(alertStatus1, animated: true, completion: nil)
                     }
                     break
                 case .failure(let error):
