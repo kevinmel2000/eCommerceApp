@@ -28,7 +28,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     struct daftarProduk: Decodable{
-        let prodID: Int?
+        let prodID: String?
         let prodName: String?
         let prodCat: String?
         
@@ -91,6 +91,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 && indexPath.section == 0 {
             let cell0 = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! HomeTVC
+            view_imageslideshow.frame = CGRect.init(x: cell0.frame.origin.x, y: cell0.frame.origin.y, width: cell0.frame.width, height: 200)
+            view_imageslideshow.center = cell0.center
             cell0.contentView.addSubview(view_imageslideshow)
             
             return cell0
@@ -216,28 +218,29 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.sections.append((DaftarProduk?[j].prodCat!)!)
                 }
                 self.sections = self.removeDuplicates(array: self.sections)
-                print("sections = \(self.sections)")
-                //masih ada bug di loop untuk masukin nilai items.
+                print("sections = \((DaftarProduk?.endIndex)!)")
+                
                 //lakukan pengulangan sebanyak jumlah isi array sections.
+                var tempArr = [String]()
                 for k in 0 ..< self.sections.count{
-                    //while self.items.count < Int((DaftarProduk?.count)!) {
-                    //lakukan pengulangan sebanyak isi array DaftarProduk
-                    for l in 0 ..< Int((DaftarProduk?.count)!){
-                        if (DaftarProduk?[l].prodCat!)! != self.sections[k] {
-                            //jika ya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
-                            self.items.append([(DaftarProduk?[l].prodName!)!])
-                        } else {
-                            //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
-                            self.items[k].append((DaftarProduk?[l].prodName!)!)
+                    if self.sections[k] != "" {
+                        //lakukan pengulangan sebanyak isi array DaftarProduk
+                        for l in 0 ..< Int((DaftarProduk?.count)!){
+                            tempArr.removeAll(keepingCapacity: false)
+                            while (DaftarProduk?[l].prodCat!)! == self.sections[k] {
+                                if self.items.indices.contains(k) {
+                                    self.items[k].append((DaftarProduk?[l].prodName!)!)
+                                } else {
+                                    self.items.append([(DaftarProduk?[l].prodName!)!])
+                                }
+                                break
+                            }
                         }
                     }
-                    //}
                 }
-                //masih dipake untuk debugging array items
-                print("isi items: \(self.items.count)")
-                for isi2 in self.items{
-                    print("Isi item = \(isi2)")
-                }
+                
+                print("jumlah items: \(self.items.count)")
+                //print("isi items: \(self.items)")
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
