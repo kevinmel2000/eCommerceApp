@@ -210,7 +210,7 @@ class ProductVC: UIViewController {
             if (self.Prod_Add2Wishlist.currentTitle! == "Delete From Wishlist") {
                 self.AddDeleteWishlist = "delete"
                 //print("ProdukID=\(self.prodID)")
-                Alamofire.request("https://imperio.co.id/project/ecommerceApp/add_remove_wishlist.php?userid=\((self.userdefault.object(forKey: "userid") as? String)!)&prodid=\(self.prodID)&wishlist_status=\(self.AddDeleteWishlist)").validate(contentType: ["text/html"]).responseString{ response in
+                Alamofire.request(BaseURL.rootURL()+"add_remove_wishlist.php?userid=\((self.userdefault.object(forKey: "userid") as? String)!)&prodid=\(self.prodID)&wishlist_status=\(self.AddDeleteWishlist)").validate(contentType: ["text/html"]).responseString{ response in
                     switch response.result {
                     case .success(let data):
                         if ( data == "The product has been removed from your wishlist."){
@@ -229,7 +229,7 @@ class ProductVC: UIViewController {
                 }
             } else if (self.Prod_Add2Wishlist.currentTitle! == "Add To Wishlist") {
                 self.AddDeleteWishlist = "add"
-                Alamofire.request("https://imperio.co.id/project/ecommerceApp/add_remove_wishlist.php?userid=\((self.userdefault.object(forKey: "userid") as? String)!)&prodid=\(self.prodID)&wishlist_status=\(self.AddDeleteWishlist)").validate(contentType: ["text/html"]).responseString{ response in
+                Alamofire.request(BaseURL.rootURL()+"add_remove_wishlist.php?userid=\((self.userdefault.object(forKey: "userid") as? String)!)&prodid=\(self.prodID)&wishlist_status=\(self.AddDeleteWishlist)").validate(contentType: ["text/html"]).responseString{ response in
                     switch response.result {
                     case .success(let data):
                         if ( data == "The product has been added to your wishlist."){
