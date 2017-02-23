@@ -174,8 +174,6 @@ class ProductVC: UIViewController {
                     }
                     self.Prod_desc.text = DetailProduk?[j].prodDesc!
                     //self.Prod_desc.sizeToFit()
-                    self.Prod_Add2Cart.isEnabled = true
-                    self.Prod_Add2Wishlist.isEnabled = true
                 }
                 break
             case .failure(let error):
