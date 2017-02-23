@@ -221,12 +221,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("sections = \((DaftarProduk?.endIndex)!)")
                 
                 //lakukan pengulangan sebanyak jumlah isi array sections.
-                var tempArr = [String]()
                 for k in 0 ..< self.sections.count{
                     if self.sections[k] != "" {
                         //lakukan pengulangan sebanyak isi array DaftarProduk
                         for l in 0 ..< Int((DaftarProduk?.count)!){
-                            tempArr.removeAll(keepingCapacity: false)
                             while (DaftarProduk?[l].prodCat!)! == self.sections[k] {
                                 if self.items.indices.contains(k) {
                                     self.items[k].append((DaftarProduk?[l].prodName!)!)
