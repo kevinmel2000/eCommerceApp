@@ -89,19 +89,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! HomeTVC
-        cell.backgroundColor = UIColor(red: 209.0/255.0, green: 26.0/255.0, blue: 81.0/255.0, alpha: 1.0)
-        cell.prodNameLabel.text = self.items[indexPath.section][indexPath.row]
-        cell.prodNameLabel.textColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        cell.imageProd.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
+        if indexPath.row == 0 && indexPath.section == 0 {
+            let cell0 = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! HomeTVC
+            cell0.contentView.addSubview(view_imageslideshow)
+            
+            return cell0
+        } else {
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! HomeTVC
+            cell1.backgroundColor = UIColor(red: 209.0/255.0, green: 26.0/255.0, blue: 81.0/255.0, alpha: 1.0)
+            cell1.prodNameLabel.text = self.items[indexPath.section][indexPath.row]//kadang2 baris kode ini bikin error, belum diketahu penyababnya.
+            cell1.prodNameLabel.textColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            cell1.imageProd.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            cell1.accessoryType = .disclosureIndicator
+            
+            return cell1
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 110.0;//Choose your custom row height
+        if indexPath.row == 0 && indexPath.section == 0 {
+            return 200 //height for imageslideshow
+        } else {
+            return 110.0 //Choose your custom row height
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -192,6 +203,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func get_data_from_url(url:String){
         sections.removeAll(keepingCapacity: false)
         items.removeAll(keepingCapacity: false)
+        self.sections.append("")
+        self.items.append([""])
         Alamofire.request(url, method:.get).validate(contentType: ["application/json"]).responseJSON{ response in
             switch response.result{
             case .success(let data):
@@ -203,29 +216,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.sections.append((DaftarProduk?[j].prodCat!)!)
                 }
                 self.sections = self.removeDuplicates(array: self.sections)
-                
+                print("sections = \(self.sections)")
                 //masih ada bug di loop untuk masukin nilai items.
                 //lakukan pengulangan sebanyak jumlah isi array sections.
                 for k in 0 ..< self.sections.count{
                     //while self.items.count < Int((DaftarProduk?.count)!) {
                     //lakukan pengulangan sebanyak isi array DaftarProduk
                     for l in 0 ..< Int((DaftarProduk?.count)!){
-                        //apakah array items tidak kosong?
-                        if !self.items.isEmpty {
-                            
-                                //kalau iya, apakah produk kategori pada array DaftarPoduk ke-l (yang sekarang) sama dengan nilai produk kategori pada array section ke-k (yang sekarang)?
-                                if (DaftarProduk?[l].prodCat!)! != self.sections[k]{
-                                    //jika iya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
-                                    self.items.append([(DaftarProduk?[l].prodName!)!])
-                                } else {
-                                    //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
-                                    self.items[k].append((DaftarProduk?[l].prodName!)!)
-                                }
-                        } else {
-                            //jika tidak (berarti array kosong), buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
+                        if (DaftarProduk?[l].prodCat!)! != self.sections[k] {
+                            //jika ya, isi nilai produk yang sekarang pada array ke-k (nilai produk kategori yang sekarang)
                             self.items.append([(DaftarProduk?[l].prodName!)!])
+                        } else {
+                            //jika tidak, buat array baru (di dalam array items) lalu isi dengan nilai produk yang sekarang
+                            self.items[k].append((DaftarProduk?[l].prodName!)!)
                         }
-                        
                     }
                     //}
                 }

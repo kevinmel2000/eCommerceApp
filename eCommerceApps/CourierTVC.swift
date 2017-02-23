@@ -184,7 +184,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func get_data_user_addr(url:String){
         let parameterURL = ["userid":self.userdefault.object(forKey: "userid") as! String]
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
-            let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
+            /*let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
             alert.view.tintColor = UIColor.black
             let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: (self.view.frame.size.width/2),y: (self.view.frame.size.height)/2,width: (self.view.frame.size.width)*0.4,height: (self.view.frame.size.height)*0.4))
             loadingIndicator.hidesWhenStopped = true
@@ -192,21 +192,21 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             loadingIndicator.startAnimating();
             
             alert.view.addSubview(loadingIndicator)
-            self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)*/
             
             switch response.result{
             case .success(let data):
-                self.dismiss(animated: false, completion: nil)
+                //self.dismiss(animated: false, completion: nil)
                 guard let value = data as? JSON,
                     let eventsArrayJSON = value["userprof"] as? [JSON]
                     else { fatalError() }
                 let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((Userprofile?.count)!) {
-                    self.get_data_from_url(url: BaseURL.rootURL()+"CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
+                    self.get_data_from_url(url: "https://www.imperio.co.id/project/ecommerceApp/CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
                 }
                 break
             case .failure(let error):
-                self.dismiss(animated: false, completion: nil)
+                //self.dismiss(animated: false, completion: nil)
                 print("Error: \(error)")
                 let alert = UIAlertController (title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
@@ -220,6 +220,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func get_data_from_url(url:String, city:String){
         self.TableData.removeAll(keepingCapacity: false)
         let parameterURL = ["dest":city,"weight":String(cart.totalWeightInCart())]
+        print("parameter ambil data kurir: \(parameterURL)")
         Alamofire.request(url, parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
             let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
             alert.view.tintColor = UIColor.black
