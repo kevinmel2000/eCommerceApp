@@ -78,9 +78,6 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        /*if User_city.text! != "City"{
-         get_data_from_url(url: "https://www.imperio.co.id/project/ecommerceApp/CourierDataReq.php")
-         }*/
         updateTotalCostsLabel()
     }
     
@@ -205,7 +202,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     else { fatalError() }
                 let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((Userprofile?.count)!) {
-                    self.get_data_from_url(url: "https://www.imperio.co.id/project/ecommerceApp/CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
+                    self.get_data_from_url(url: BaseURL.rootURL()+"CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
                 }
                 break
             case .failure(let error):
@@ -264,9 +261,9 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             if let productsJSON = try? JSONSerialization.data(withJSONObject: cart.prepareForConvesionToJSON(), options: .prettyPrinted) {
                 let strJSON = String(bytes: productsJSON, encoding: .utf8)
                 //let strJSONfinal = "\""+strJSON!+"\""
-                let parameterURL=["userid":userdefault.object(forKey: "userid") as! String, "products":strJSON!,"subtotal":String(cart.totalPriceInCart()),"tax":String(cart.calculateTax(true)),"weight":String(cart.totalWeightInCart()),"shipper":String(cart.getShipperData().0),"shipperService":String(cart.getShipperData().1),"shippingCost":String(cart.getShippingCost()),"paymentMethod":paymentType]
+                let parameterURL=["userid":userdefault.object(forKey: "userid") as! String, "products":strJSON!, "subtotal":String(cart.totalPriceInCart()), "tax":String(cart.calculateTax(true)), "weight":String(cart.totalWeightInCart()), "shipper":String(cart.getShipperData().0), "shipperService":String(cart.getShipperData().1), "shippingCost":String(cart.getShippingCost()), "paymentMethod":paymentType]
                 //print(parameterURL)
-                Alamofire.request("https://www.imperio.co.id/project/ecommerceApp/createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+                Alamofire.request(BaseURL.rootURL()+"createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
                     switch response.result{
                     case .success(let data):
                         guard let value = data as? JSON,

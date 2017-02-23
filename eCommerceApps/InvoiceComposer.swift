@@ -18,13 +18,7 @@ class InvoiceComposer: NSObject {
     
     let pathToBankInfoTemplate = Bundle.main.path(forResource: "bank_Info", ofType: "html")
     
-    //let senderInfo = "DSC Co.<br>Jl. Terusan Buah Batu<br>40000 - Bandung<br>Indonesia"
-    
     let dueDate = ""
-    
-    //let paymentMethod = "Bank Transfer"
-    
-    //let logoImageURL = "https://www.imperio.co.id/project/ecommerceApp/Logo_DSC.png"
     
     var invoiceNumber: String!
     

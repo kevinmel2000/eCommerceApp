@@ -173,6 +173,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.view_imageslideshow?.contentScaleMode = UIViewContentMode.scaleAspectFill
                 self.view_imageslideshow?.draggingEnabled = true
                 self.view_imageslideshow?.setImageInputs(afNetworkingSource)
+                
                 //untuk slideshow gambar produk: End
                 break
             case .failure(let error):
