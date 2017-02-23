@@ -137,12 +137,17 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func clearButton(_ sender: UIBarButtonItem) {
-        clearCart()
-        DispatchQueue.main.async(execute: {
-            self.tableView.reloadData()
-            self.checkEmptyStateOfCart()
-            self.updateTotalCostsLabel()
-        })
+        let alertClear = UIAlertController (title: "DSC App Message", message: "All products in shopping cart will be deleted. Are you sure to continue?", preferredStyle: UIAlertControllerStyle.alert)
+        alertClear.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  {(action) in
+            self.clearCart()
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+                self.checkEmptyStateOfCart()
+                self.updateTotalCostsLabel()
+            })
+        }))
+        alertClear.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive,handler:  nil))
+        self.present(alertClear, animated: true, completion: nil)
     }
     
     @IBAction func CheckOutButton(_ sender: UIButton) {
@@ -151,7 +156,7 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
                 performSegue(withIdentifier: "SegueFromCartToShipment", sender: self)
             }
         } else {
-            let alertStatus = UIAlertController (title: "eCommerce App Message", message: "Please login to start check out process.", preferredStyle: UIAlertControllerStyle.alert)
+            let alertStatus = UIAlertController (title: "DSC App Message", message: "Please login to start check out process.", preferredStyle: UIAlertControllerStyle.alert)
             alertStatus.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler:  nil))
             self.present(alertStatus, animated: true, completion: nil)
         }
