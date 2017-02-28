@@ -222,7 +222,6 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         if circular {
             pageOffset += 1
         }
-        
         self.setScrollViewPage(pageOffset, animated: animated)
     }
     
@@ -276,6 +275,9 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         } else {
             currentItemIndex = page
         }
+        
+        print("curr item index = \(currentItemIndex)")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageslideshowChanged"), object: nil, userInfo: ["CurrItemIndex":currentItemIndex])
     }
     
     /// Stops slideshow timer

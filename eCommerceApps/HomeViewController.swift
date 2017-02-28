@@ -20,10 +20,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     struct PromoBanners: Decodable{
         let promoID: Int?
         let promoBanner: String?
+        let bannerText: String?
         
         init?(json: JSON){
             self.promoID = "id" <~~ json
             self.promoBanner = "banner" <~~ json
+            self.bannerText = "text" <~~ json
         }
     }
     
@@ -41,6 +43,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var sections:Array<String> = Array <String>()
     var items = [[String]]()
+    var textBG = UIView()
+    var imageText = UILabel()
+    var bannerText = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +54,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataSource = self
         tableView.delegate = self
+        
+        textBG = UIView(frame: CGRect(x:0, y:153, width:self.view_imageslideshow.frame.width, height:self.view_imageslideshow.frame.height/3))
+        textBG.backgroundColor = UIColor.black
+        textBG.alpha = 0.9
+        self.view_imageslideshow.addSubview(textBG)
+        self.view_imageslideshow.bringSubview(toFront: textBG)
+        
+        imageText = UILabel(frame: CGRect(x: self.view_imageslideshow.frame.origin.x/2, y: self.view_imageslideshow.frame.origin.y/4, width: self.textBG.frame.width, height: 21))
+        imageText.text = "Image Caption"
+        imageText.sizeToFit()
+        imageText.textAlignment = .center
+        imageText.textColor = UIColor.white
+        imageText.font = UIFont.systemFont(ofSize: 17)
+        textBG.addSubview(imageText)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +87,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             get_data_for_banners(url: BaseURL.rootURL()+"promobanners.php")
             get_data_from_url(url: BaseURL.rootURL()+"allproducts.php")
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.showText(_:)), name: NSNotification.Name(rawValue: "ImageslideshowChanged"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -175,8 +196,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let PromoBannersVar = [PromoBanners].from(jsonArray: eventsArrayJSON)
                 //untuk slideshow gambar produk: Start
                 var afNetworkingSource = [AFURLSource]()
+                self.bannerText.removeAll(keepingCapacity: false)
                 for j in 0 ..< Int((PromoBannersVar?.count)!) {
                     afNetworkingSource.append(AFURLSource(urlString: (PromoBannersVar?[j].promoBanner!)!)!)
+                    self.bannerText.append((PromoBannersVar?[j].bannerText!)!)
                 }
                 self.view_imageslideshow?.backgroundColor = UIColor.clear
                 self.view_imageslideshow?.slideshowInterval = 5.0
@@ -200,6 +223,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 break
             }
         }
+    }
+    
+    func showText(_ notification: Notification){
+        if notification != nil {
+            imageText.text = self.bannerText[notification.userInfo?["CurrItemIndex"] as! Int]
+        } else {
+            imageText.text = "Image Caption"
+        }
+        imageText.sizeToFit()
     }
     
     func get_data_from_url(url:String){
