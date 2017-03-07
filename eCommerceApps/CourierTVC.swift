@@ -202,7 +202,7 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     else { fatalError() }
                 let Userprofile = [UserProfile].from(jsonArray: eventsArrayJSON)
                 for j in 0 ..< Int((Userprofile?.count)!) {
-                    self.get_data_from_url(url: "https://www.imperio.co.id/project/ecommerceApp/CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
+                    self.get_data_from_url(url: BaseURL.rootURL()+"CourierDataReq.php", city: (Userprofile?[j].UserAddr_city!)!)
                 }
                 break
             case .failure(let error):

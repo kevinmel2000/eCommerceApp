@@ -76,7 +76,7 @@ class ProductVC: UIViewController {
         Prod_Add2Cart.layer.cornerRadius = 5
         Prod_Add2Wishlist.layer.cornerRadius = 5
         Prod_Add2Cart.isEnabled = false
-        Prod_Add2Wishlist.isEnabled = false
+        Prod_Add2Wishlist.isEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
