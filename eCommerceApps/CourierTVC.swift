@@ -261,37 +261,52 @@ class CourierTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if valid {
             if let productsJSON = try? JSONSerialization.data(withJSONObject: cart.prepareForConvesionToJSON(), options: .prettyPrinted) {
                 let strJSON = String(bytes: productsJSON, encoding: .utf8)
-                //let strJSONfinal = "\""+strJSON!+"\""
-                let parameterURL=["userid":userdefault.object(forKey: "userid") as! String, "products":strJSON!, "subtotal":String(cart.totalPriceInCart()), "tax":String(cart.calculateTax(true)), "weight":String(cart.totalWeightInCart()), "shipper":String(cart.getShipperData().0), "shipperService":String(cart.getShipperData().1), "shippingCost":String(cart.getShippingCost()), "paymentMethod":paymentType]
-                //print(parameterURL)
-                Alamofire.request(BaseURL.rootURL()+"createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
-                    switch response.result{
-                    case .success(let data):
-                        guard let value = data as? JSON,
-                            let eventsArrayJSON = value["InvoiceStatus"] as? [JSON]
-                            else { fatalError() }
-                        let createinvoice = [CreateInvoice].from(jsonArray: eventsArrayJSON)
-                        for j in 0 ..< Int((createinvoice?.count)!) {
-                            let alert = UIAlertController (title: "\((createinvoice?[0].status!)!) To Create Invoice", message: (createinvoice?[j].message!)!, preferredStyle: UIAlertControllerStyle.alert)
-                            if (createinvoice?[j].status!)! == "Success" {
-                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: {action in
-                                    self.cart.deleteAllDataInCart()
-                                    self.performSegue(withIdentifier: "SegueFinishCheckOut", sender: self)
-                                }))
-                            } else {
-                                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                print(strJSON!)
+                if cart.getShipperData().0 != "" && cart.getShipperData().1 != "" {
+                    let parameterURL=["userid":userdefault.object(forKey: "userid") as! String,"products":strJSON!,"subtotal":String(cart.totalPriceInCart()),"tax":String(cart.calculateTax(true)),"weight":String(cart.totalWeightInCart()),"shipper":String(cart.getShipperData().0),"shipperService":String(cart.getShipperData().1),"shippingCost":String(cart.getShippingCost()),"paymentMethod":paymentType]
+                    print(parameterURL)
+                    Alamofire.request(BaseURL.rootURL()+"createInvoice.php", parameters: parameterURL).validate(contentType: ["application/json"]).responseJSON{ response in
+                        switch response.result{
+                        case .success(let data):
+                            guard let value = data as? JSON,
+                                let eventsArrayJSON = value["InvoiceStatus"] as? [JSON]
+                                else { fatalError() }
+                            let createinvoice = [CreateInvoice].from(jsonArray: eventsArrayJSON)
+                            for j in 0 ..< Int((createinvoice?.count)!) {
+                                let alert = UIAlertController (title: "\((createinvoice?[0].status!)!) To Create Invoice", message: (createinvoice?[j].message!)!, preferredStyle: UIAlertControllerStyle.alert)
+                                if (createinvoice?[j].status!)! == "Success" {
+                                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: {action in
+                                        self.cart.deleteAllDataInCart()
+                                        self.performSegue(withIdentifier: "SegueFinishCheckOut", sender: self)
+                                    }))
+                                } else {
+                                    alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                                }
+                                self.present(alert, animated: true, completion: nil)
                             }
+                            break
+                        case .failure(let error):
+                            let alert = UIAlertController (title: "Error", message: String(describing: error), preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
                             self.present(alert, animated: true, completion: nil)
+                            break
                         }
-                        break
-                    case .failure(let error):
-                        let alert = UIAlertController (title: "Error", message: String(describing: error), preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                        break
                     }
+                } else {
+                    var emptyField = ""
+                    if cart.getShipperData().0 == "" {
+                        emptyField = "Courier Nama"
+                    } else if cart.getShipperData().1 == "" {
+                        emptyField = "and Courier Service"
+                    }
+                    
+                    let alert = UIAlertController (title: "There is an empty fields", message: "Empty Field(s): \(emptyField)", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
+        } else {
+            print("JSON of Product data is not valid.")
         }
     }
 
