@@ -12,7 +12,7 @@ public class BaseURL {
     
     class func rootURL() -> String {
         
-        return "http://scbdresearch.com/dscApp/"
+        return "http://scbdresearch.org/dscApp/"
         
     }
 }
