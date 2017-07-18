@@ -276,7 +276,7 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
             currentItemIndex = page
         }
         
-        print("curr item index = \(currentItemIndex)")
+        //print("curr item index = \(currentItemIndex)")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageslideshowChanged"), object: nil, userInfo: ["CurrItemIndex":currentItemIndex])
     }
     
