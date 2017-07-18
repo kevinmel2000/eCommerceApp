@@ -266,7 +266,7 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
             if error != nil {
-                print("error=\(error)")
+                print("error=\(String(describing: error))")
                 return
             }
             // print out response object
@@ -377,7 +377,7 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
      }
      }*/
     
-    func textFieldDidBeginEditing(_ textField: UITextField)->Bool {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 0 {
             invoicePicker.isHidden = false
             invoicePicker.selectRow(invoicePicker.selectedRow(inComponent: 0), inComponent: 0, animated: true)
@@ -385,7 +385,6 @@ class PayConfVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             MerchantBankPicker.isHidden = false
             MerchantBankPicker.selectRow(MerchantBankPicker.selectedRow(inComponent: 0), inComponent: 0, animated: true)
         }
-        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

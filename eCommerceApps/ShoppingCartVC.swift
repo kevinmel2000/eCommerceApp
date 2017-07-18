@@ -91,7 +91,7 @@ class ShoppingCartVC: UIViewController, UITableViewDataSource, UITableViewDelega
         return true
     }
     
-    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let product = cart.productAtIndexPath(indexPath as IndexPath)
             let successful = cart.removeProduct(product)

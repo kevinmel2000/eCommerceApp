@@ -235,13 +235,12 @@ class RefundReqVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         self.view.endEditing(true)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField)->Bool {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 0 {
             invoicePicker.isHidden = false
         } else if textField.tag == 1 {
             itemsPicker.isHidden = false
         }
-        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
